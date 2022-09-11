@@ -1,0 +1,18 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/rafinha_tonello/financialManager'
+mkdir -p objects/exceptions
+mkdir -p objects/services/storage
+mkdir -p objects/mvcModules/controller
+mkdir -p objects/mvcModules/model
+mkdir -p objects/mvcModules/api
+mkdir -p objects/common/misc
+mkdir -p objects/common/libs/DependencyInjectionManager
+mkdir -p objects/common/libs/json_maker/sources
+mkdir -p objects/common/libs/KwWebServer/sources/helpers
+mkdir -p objects/common/libs/logger/writers
+mkdir -p objects/common/libs/patriciatree
+mkdir -p objects/common/libs/sinkstream
+mkdir -p objects/common/libs/TCPServer/sources
+mkdir -p objects/common/libs/threadpool
+make: Leaving directory '/home/rafinha_tonello/financialManager'
+ 

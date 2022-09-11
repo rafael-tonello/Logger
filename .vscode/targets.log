@@ -1,0 +1,829 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.3
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Thu Aug 25 14:39:30 2022
+
+# Variables
+
+# makefile (from 'makefile', line 6)
+PROJ_NAME = CapitalManager
+# makefile (from 'makefile', line 92)
+OBJ = $(subst .cpp,.o,$(subst ./sources,./objects,$(C_SOURCE)))
+# environment
+GDK_BACKEND = x11
+# environment
+LC_ALL = C
+# environment
+GNOME_SHELL_SESSION_MODE = ubuntu
+# environment
+SSH_AGENT_LAUNCHER = gnome-keyring
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# environment
+LC_NAME = pt_BR.UTF-8
+# environment
+LC_NUMERIC = pt_BR.UTF-8
+# environment
+VSCODE_CWD = /home/rafinha_tonello
+# environment
+WINDOWPATH = 2
+# environment
+LC_ADDRESS = pt_BR.UTF-8
+# default
+MAKE_COMMAND := make
+# environment
+QT_ACCESSIBILITY = 1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# makefile (from 'makefile', line 67)
+H_SOURCE = $(wildcard ./sources/*.h) $(wildcard ./sources/exceptions/*.h) $(wildcard ./sources/services/*.h) $(wildcard ./sources/services/storage/*.h) $(wildcard ./sources/mvcModules/controller/*.h) $(wildcard ./sources/mvcModules/model/*.h) $(wildcard ./sources/mvcModules/api/*.h) $(wildcard ./sources/common/misc/*.h) $(wildcard ./sources/common/libs/*.h) $(wildcard ./sources/common/libs/DependencyInjectionManager/*.h) $(wildcard ./sources/common/libs/json_maker/sources/*.h) $(wildcard ./sources/common/libs/KwWebServer/sources/*.h) $(wildcard ./sources/common/libs/KwWebServer/sources/helpers/*.h) $(wildcard ./sources/common/libs/logger/*.h) $(wildcard ./sources/common/libs/logger/writers/*.h) $(wildcard ./sources/common/libs/patriciatree/*.h) $(wildcard ./sources/common/libs/sinkstream/*.h) $(wildcard ./sources/common/libs/TCPServer/sources/*.h) $(wildcard ./sources/common/libs/threadpool/*.h)
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /home/rafinha_tonello/financialManager
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu-xorg:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = /home/rafinha_tonello/.config/Code/CachedData/6d9b74a70ca9c7733b29f0456fd8195364076dda
+# environment
+LANG = C
+# environment
+XAUTHORITY = /run/user/1000/gdm/Xauthority
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
+# makefile
+MAKEFLAGS = pqrR
+# makefile
+CURDIR := /home/rafinha_tonello/financialManager
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu-xorg:/etc/xdg
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+XDG_SESSION_DESKTOP = ubuntu-xorg
+# makefile (from 'makefile', line 1)
+MAKEFILE_LIST := makefile
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_PID = 100656
+# environment
+XDG_SESSION_TYPE = x11
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+SESSION_MANAGER = local/ubuntupessoal-vm:@/tmp/.ICE-unix/100054,unix/ubuntupessoal-vm:/tmp/.ICE-unix/100054
+# automatic
+*F = $(notdir $*)
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# makefile (from 'makefile', line 107)
+LK_FLAGS = -pthread -lssl -lcrypto -ggdb3 -std=c++20 $(CUSTOM_INCLUDE_PATH)
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# makefile
+SHELL = /bin/sh
+# default
+MAKECMDGOALS := all
+# environment
+XMODIFIERS = @im=ibus
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+SHLVL = 0
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = /home/rafinha_tonello/bin:/home/rafinha_tonello/bin:/home/rafinha_tonello/bin:/home/rafinha_tonello/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/rafinha_tonello/.dotnet/tools:/home/rafinha_tonello/.dotnet/tools:/home/rafinha_tonello/.dotnet/tools
+# default
+MAKEFILES := 
+# environment
+LC_MONETARY = pt_BR.UTF-8
+# automatic
+^F = $(notdir $^)
+# environment
+LC_TIME = pt_BR.UTF-8
+# environment
+INVOCATION_ID = cf23f3fd0a844ab8b6c4017f37a8078c
+# environment
+USERNAME = rafinha_tonello
+# environment
+LC_TELEPHONE = pt_BR.UTF-8
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# automatic
+?F = $(notdir $?)
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+LS_COLORS = 
+# automatic
++F = $(notdir $+)
+# environment
+DESKTOP_SESSION = ubuntu-xorg
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+LOGNAME = rafinha_tonello
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# makefile
+.DEFAULT_GOAL := objFolder
+# environment
+SYSTEMD_EXEC_PID = 100077
+# makefile (from 'makefile', line 115)
+RM = rm -rf
+# environment
+DISPLAY = :0
+# environment
+USER = rafinha_tonello
+# environment
+GTK_MODULES = gail:atk-bridge
+# default
+MAKE_VERSION := 4.3
+# environment
+MANAGERPID = 2784
+# environment
+LC_MEASUREMENT = pt_BR.UTF-8
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 100656
+# environment
+_ = /usr/share/code/code
+# environment
+LC_PAPER = pt_BR.UTF-8
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+# environment
+LC_CTYPE = pt_BR.UTF-8
+# makefile (from 'makefile', line 46)
+C_SOURCE = $(wildcard ./sources/*.cpp) $(wildcard ./sources/exceptions/*.cpp) $(wildcard ./sources/services/*.cpp) $(wildcard ./sources/services/storage/*.cpp) $(wildcard ./sources/mvcModules/controller/*.cpp) $(wildcard ./sources/mvcModules/model/*.cpp) $(wildcard ./sources/mvcModules/api/*.cpp) $(wildcard ./sources/common/misc/*.cpp) $(wildcard ./sources/common/libs/*.cpp) $(wildcard ./sources/common/libs/DependencyInjectionManager/*.cpp) $(wildcard ./sources/common/libs/json_maker/sources/*.cpp) $(wildcard ./sources/common/libs/KwWebServer/sources/*.cpp) $(wildcard ./sources/common/libs/KwWebServer/sources/helpers/*.cpp) $(wildcard ./sources/common/libs/logger/*.cpp) $(wildcard ./sources/common/libs/logger/writers/*.cpp) $(wildcard ./sources/common/libs/patriciatree/*.cpp) $(wildcard ./sources/common/libs/sinkstream/*.cpp) $(wildcard ./sources/common/libs/TCPServer/sources/*.cpp) $(wildcard ./sources/common/libs/threadpool/*.cpp)
+# environment
+JOURNAL_STREAM = 8:981664
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/rafinha_tonello
+# environment
+QT_IM_MODULE = ibus
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-750b433e-1.70.1-main.sock
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# makefile (from 'makefile', line 25)
+CUSTOM_INCLUDE_PATH = -I"./sources" -I"./sources/exceptions" -I"./sources/services" -I"./sources/services/storage" -I"./sources/mvcModules/controller" -I"./sources/mvcModules/model" -I"./sources/mvcModules/api" -I"./sources/common/misc" -I"./sources/common/libs" -I"./sources/common/libs/DependencyInjectionManager" -I"./sources/common/libs/json_maker/sources" -I"./sources/common/libs/KwWebServer/sources" -I"./sources/common/libs/KwWebServer/sources/helpers" -I"./sources/common/libs/logger" -I"./sources/common/libs/logger/writers" -I"./sources/common/libs/patriciatree" -I"./sources/common/libs/sinkstream" -I"./sources/common/libs/TCPServer/sources" -I"./sources/common/libs/threadpool"
+# default
+SUFFIXES := 
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# makefile (from 'makefile', line 95)
+CC = g++
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+GDMSESSION = ubuntu-xorg
+# environment
+LC_IDENTIFICATION = pt_BR.UTF-8
+# makefile (from 'makefile', line 98)
+CC_FLAGS = -c -pthread -lssl -lcrypto -ggdb3 -std=c++20 $(CUSTOM_INCLUDE_PATH)
+# variable set hash-table stats:
+# Load=111/1024=11%, Rehash=0, Collisions=4/257=2%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# ./sources/mvcModules/controller (device 2051, inode 11667204): 6 files, no impossibilities.
+# ./sources/common/libs/DependencyInjectionManager (device 2051, inode 11666591): 3 files, no impossibilities.
+# ./sources/common/libs/KwWebServer/sources/helpers (device 2051, inode 11927867): 7 files, no impossibilities.
+# ./sources/common/libs (device 2051, inode 11666583): 10 files, no impossibilities.
+# ./sources/common/libs/logger (device 2051, inode 11666594): 5 files, no impossibilities.
+# ./sources/common/libs/KwWebServer/sources (device 2051, inode 11927852): 14 files, no impossibilities.
+# ./sources/common/libs/sinkstream (device 2051, inode 11667086): 3 files, no impossibilities.
+# ./sources/mvcModules/api (device 2051, inode 11928074): 8 files, no impossibilities.
+# . (device 2051, inode 10358515): 13 files, no impossibilities.
+# ./sources/services (device 2051, inode 11666568): 3 files, no impossibilities.
+# sources (device 2051, inode 11666554): 9 files, no impossibilities.
+# ./sources/common/misc (device 2051, inode 11666615): 14 files, no impossibilities.
+# ./sources/common/libs/logger/writers (device 2051, inode 11666597): 8 files, no impossibilities.
+# ./sources/common/libs/threadpool (device 2051, inode 11666922): 9 files, no impossibilities.
+# ./sources (device 2051, inode 11666554): 9 files, no impossibilities.
+# ./sources/exceptions (device 2051, inode 11666998): 6 files, no impossibilities.
+# ./sources/common/libs/TCPServer/sources (device 2051, inode 11928015): 5 files, no impossibilities.
+# ./sources/mvcModules/model (device 2051, inode 11667212): 6 files, no impossibilities.
+# ./sources/common/libs/patriciatree (device 2051, inode 11928148): 5 files, no impossibilities.
+# ./sources/services/storage (device 2051, inode 11667062): 5 files, no impossibilities.
+# ./sources/common/libs/json_maker/sources (device 2051, inode 11666904): 4 files, no impossibilities.
+
+# 152 files, no impossibilities in 21 directories.
+
+# Implicit Rules
+
+objects/%.o: sources/%.cpp sources/%.h
+#  recipe to execute (from 'makefile', line 129):
+	@ echo 'Building target using GCC compiler: $<'
+	$(CC) $< $(CC_FLAGS) -o $@
+	@ echo ' '
+
+ 
+# 1 implicit rules, 0 (0.0%) terminal.
+# Files
+
+# Not a target:
+objects/mvcModules/api/goodApi.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+CapitalManager: objects/main.o objects/exceptions/deserializingInvalidClassException.o objects/exceptions/itemNotFoundException.o objects/services/storage/PatriciaTreeDB.o objects/mvcModules/controller/currencyUnitCtrl.o objects/mvcModules/controller/goodCtrl.o objects/mvcModules/model/currencyUnitModel.o objects/mvcModules/model/goodModel.o objects/mvcModules/api/currencyUnitApi.o objects/mvcModules/api/goodApi.o objects/common/misc/DynamicVar.o objects/common/misc/TaggedObject.o objects/common/misc/excessiveCallPrevent.o objects/common/misc/serializable.o objects/common/misc/timersForDebug.o objects/common/misc/utils.o objects/common/libs/json_maker/sources/JSON.o objects/common/libs/KwWebServer/sources/HttpData.o objects/common/libs/KwWebServer/sources/KWTinyWebServer.o objects/common/libs/KwWebServer/sources/StringUtils.o objects/common/libs/KwWebServer/sources/SysLink.o objects/common/libs/KwWebServer/sources/helpers/KWWebServerRouter.o objects/common/libs/KwWebServer/sources/helpers/httpCodes.o objects/common/libs/logger/logger.o objects/common/libs/logger/writers/LoggerConsoleWriter.o objects/common/libs/logger/writers/LoggerFileWriter.o objects/common/libs/logger/writers/LoggerLambdaWriter.o objects/common/libs/patriciatree/file.o objects/common/libs/TCPServer/sources/TCPServer.o objects/common/libs/threadpool/JsPromise.o objects/common/libs/threadpool/ThreadPool.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 123):
+	@ echo 'Building binary using GCC linker: $@'
+	$(CC) $^ $(LK_FLAGS) -o build/$@
+	@ echo 'Finished building binary: $@'
+	@ echo ' '
+
+# Not a target:
+objects/mvcModules/model/goodModel.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/patriciatree/patricia.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/KwWebServer/sources/helpers/KWWebServerRouter.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/mvcModules/api/goodApi.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/mvcModules/model/currencyUnitModel.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/patriciatree/file.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/mvcModules/controller/currencyUnitCtrl.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/json_maker/sources/JSON.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/exceptions/deserializingInvalidClassException.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/main.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+objFolder:
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := objFolder
+# automatic
+# * := 
+# automatic
+# < := 
+# automatic
+# + := 
+# automatic
+# % := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
+#  recipe to execute (from 'makefile', line 70):
+	@ mkdir -p objects/exceptions
+	@ mkdir -p objects/services/storage
+	@ mkdir -p objects/mvcModules/controller
+	@ mkdir -p objects/mvcModules/model
+	@ mkdir -p objects/mvcModules/api
+	@ mkdir -p objects/common/misc
+	@ mkdir -p objects/common/libs/DependencyInjectionManager
+	@ mkdir -p objects/common/libs/json_maker/sources
+	@ mkdir -p objects/common/libs/KwWebServer/sources/helpers
+	@ mkdir -p objects/common/libs/logger/writers
+	@ mkdir -p objects/common/libs/patriciatree
+	@ mkdir -p objects/common/libs/sinkstream
+	@ mkdir -p objects/common/libs/TCPServer/sources
+	@ mkdir -p objects/common/libs/threadpool
+
+# Not a target:
+sources/common/libs/patriciatree/file.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/mvcModules/api/currencyUnitApi.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/mvcModules/api/apisCommon.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/logger/logger.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/KwWebServer/sources/SysLink.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/misc/timersForDebug.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/main.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/misc/DynamicVar.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/KwWebServer/sources/helpers/KWWebServerRouter.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/KwWebServer/sources/HttpData.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/DependencyInjectionManager/dependencyInjectionManager.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/logger/writers/LoggerFileWriter.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/threadpool/ThreadPool.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 139):
+	@ $(RM) ./objects/*.o $(PROJ_NAME) *~
+	@ rm -rf objects
+
+# Not a target:
+sources/common/libs/KwWebServer/sources/StringUtils.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/KwWebServer/sources/httpRamCache.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/threadpool/JsPromise.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/misc/excessiveCallPrevent.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/TCPServer/sources/TCPServer.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/json_maker/sources/JSON.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/mvcModules/api/currencyUnitApi.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/services/storage/IKeyValueDB.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/misc/utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/KwWebServer/sources/HttpData.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/KwWebServer/sources/helpers/WebServerObserverHelper.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/mvcModules/controller/goodCtrl.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+ 
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/KwWebServer/sources/helpers/httpCodes.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/exceptions/deserializingInvalidClassException.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/misc/utils.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/logger/writers/LoggerFileWriter.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all: objFolder prebuild CapitalManager
+#  Phony target (prerequisite of .PHONY).
+#  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+
+# Not a target:
+objects/common/libs/logger/writers/LoggerLambdaWriter.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/logger/logger.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/KwWebServer/sources/KWTinyWebServer.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/KwWebServer/sources/StringUtils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/threadpool/ThreadPool.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/misc/excessiveCallPrevent.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/mvcModules/model/currencyUnitModel.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/misc/serializable.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/KwWebServer/sources/helpers/httpCodes.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/TCPServer/sources/TCPServer.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/services/storage/PatriciaTreeDB.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/sinkstream/sinkstream.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+objects/main.o: sources/main.cpp sources/main.h sources/exceptions/deserializingInvalidClassException.h sources/exceptions/itemNotFoundException.h sources/services/storage/IKeyValueDB.h sources/services/storage/PatriciaTreeDB.h sources/mvcModules/controller/currencyUnitCtrl.h sources/mvcModules/controller/goodCtrl.h sources/mvcModules/model/currencyUnitModel.h sources/mvcModules/model/goodModel.h sources/mvcModules/api/apisCommon.h sources/mvcModules/api/currencyUnitApi.h sources/mvcModules/api/goodApi.h sources/common/misc/DynamicVar.h sources/common/misc/TaggedObject.h sources/common/misc/excessiveCallPrevent.h sources/common/misc/serializable.h sources/common/misc/timersForDebug.h sources/common/misc/utils.h sources/common/libs/DependencyInjectionManager/dependencyInjectionManager.h sources/common/libs/json_maker/sources/JSON.h sources/common/libs/KwWebServer/sources/HttpData.h sources/common/libs/KwWebServer/sources/IWorker.h sources/common/libs/KwWebServer/sources/KWTinyWebServer.h sources/common/libs/KwWebServer/sources/StringUtils.h sources/common/libs/KwWebServer/sources/SysLink.h sources/common/libs/KwWebServer/sources/httpRamCache.h sources/common/libs/KwWebServer/sources/helpers/KWWebServerRouter.h sources/common/libs/KwWebServer/sources/helpers/WebServerObserverHelper.h sources/common/libs/KwWebServer/sources/helpers/httpCodes.h sources/common/libs/logger/logger.h sources/common/libs/logger/writers/LoggerConsoleWriter.h sources/common/libs/logger/writers/LoggerFileWriter.h sources/common/libs/logger/writers/LoggerLambdaWriter.h sources/common/libs/patriciatree/file.h sources/common/libs/patriciatree/patricia.h sources/common/libs/sinkstream/sinkstream.h sources/common/libs/TCPServer/sources/TCPServer.h sources/common/libs/threadpool/JsPromise.h sources/common/libs/threadpool/ThreadPool.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 134):
+	@ echo 'Building target using GCC compiler: $<'
+	$(CC) $< $(CC_FLAGS) -o $@
+	@ echo ' '
+	
+
+# Not a target:
+objects/common/misc/TaggedObject.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/exceptions/itemNotFoundException.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/misc/timersForDebug.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-12 17:33:30.427320811
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/services/storage/PatriciaTreeDB.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/logger/writers/LoggerConsoleWriter.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/exceptions/itemNotFoundException.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/misc/serializable.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/KwWebServer/sources/IWorker.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/logger/writers/LoggerConsoleWriter.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/common/libs/KwWebServer/sources/KWTinyWebServer.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/logger/writers/LoggerLambdaWriter.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/mvcModules/model/goodModel.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/misc/TaggedObject.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/threadpool/JsPromise.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PHONY: all clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objects/mvcModules/controller/currencyUnitCtrl.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/misc/DynamicVar.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/mvcModules/controller/goodCtrl.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/common/libs/KwWebServer/sources/SysLink.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+prebuild:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 87):
+	@ clear
+	@ mkdir ./build | true
+	@ cp -r ./sources/copyToBuildFolder/* ./build | true
+
+# files hash-table stats:
+# Load=80/1024=8%, Rehash=0, Collisions=6/170=4%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 206 / storage = 5412 B / avg = 26 B
+# current buf: size = 8162 B / used = 5412 B / count = 206 / avg = 26 B
+
+# strcache performance: lookups = 266 / hit rate = 22%
+# hash-table stats:
+# Load=206/8192=3%, Rehash=0, Collisions=0/266=0%
+# Finished Make data base on Thu Aug 25 14:39:30 2022
+
+ 
