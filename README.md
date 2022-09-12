@@ -1,3 +1,5 @@
+# Sobre a biblioteca e uso básico
+
 A biblioteca Logger é uma lib escrita em C++ muito simples de usar e muito flexível. Ela permite que mensagens de log sejam enviados para mais de um lugar ao mesmo tempo. Você, por exemplo, enviar a mesma mensagem para um arquivo e para o stdout. A biblioteca de log consegue isso através de drivers, quesão especificados na instanciação da classe.
 
 Cada driver trata-se de uma classe que deve dar umd estino adequado para as mensgens de log. A biblioteca, atualemente, contra com três drivers embutidos: Um para escrever no stdou, um para escrever em arquivo e um para a interceptação das mensagens via funções lambada.
