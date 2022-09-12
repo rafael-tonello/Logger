@@ -32,9 +32,9 @@ está é a principal função para o log de dados e recebe um logLevel, que é u
 > Note sobre o log level: O log level é um número inteiro que indica a criciticade (ou importancia) do log. A bibiote Logger já possui 5 níveis de log padrão, sendo eles: Debug (log level 1), Info (log level 2), Warning (log level 3), Error (log level 4) e Critical (log level 4). Os drivers, normalmente, recebem um log level na su construção, indicando que apenas log levels maiores ou iguais à ele serão considerados como válidos e o restante será descartado.
 > 
 > Nota sobre o log name: O log name é um nome que é utilizado para identificar módulos e grupos de logs. Ele é, normalmente, adicionado pelos drivers no inicio das linhas de log, juntamente com a data e hora e o nível do log. Veja o exemplo abaixo para entender melhor o que é o nome do log.
->
+> ```log
 > [2022-05-01T00:02:03-0300] [INFO] [HttpServerService] new data requested to the server
->
+> ```
 > No exemplo acima, o log name é "HttpServerService"
 
 
