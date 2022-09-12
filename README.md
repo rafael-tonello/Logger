@@ -107,3 +107,20 @@ logger.error("a log with default log name");
 ```
 
 ## critical function
+A função "critical" é uma função que facilita a geração de logs com o level 5 (LOGGER_LOGLEVEL_CRITICAL).
+
+```c++
+Logger logger({
+	new LoggerConsoleWriter()
+});
+
+logger.critical("examples", "an example log");
+//all vector data will be merge in one log line
+logger.critical("examples", {"a ", "vector", "of", "data"});
+logger.critical("a log with default log name");
+```
+A função critical possui um parâmetro adicional e opcional (raiseException) que permite lançar automaticamente uma exceção assim que o log for feito. A excessão lançada é uma "runtime_error" que contem como "wath" o próprio texto do log.
+
+# TODO LISTS
+## general
+  [ ] critical function must wait internal cache be clear before raise the exception
