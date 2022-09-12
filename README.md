@@ -123,4 +123,6 @@ A função critical possui um parâmetro adicional e opcional (raiseException) q
 
 # TODO LISTS
 ## general
+```
   [ ] critical function must wait internal cache be clear before raise the exception
+```
