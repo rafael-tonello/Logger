@@ -90,6 +90,7 @@ logger.warning("examples", "an example log");
 //all vector data will be merge in one log line
 logger.warning("examples", {"a ", "vector", "of", "data"});
 logger.warning("a log with default log name");
+```
 
 ## error function
 A função "error" é uma função que facilita a geração de logs com o level 4 (LOGGER_LOGLEVEL_ERROR).
@@ -103,5 +104,6 @@ logger.error("examples", "an example log");
 //all vector data will be merge in one log line
 logger.error("examples", {"a ", "vector", "of", "data"});
 logger.error("a log with default log name");
+```
 
 ## critical function
