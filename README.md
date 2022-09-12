@@ -24,14 +24,18 @@ Bom! Feito as apresentações iniciais, abaixo há alguns tópicos interessantes
 
 # Funções para log de dados
 
-A biblioteca Logger usa algumas funções para facilitar o log das informações. São elas: log, debug, info, warning error e critical. Todas essas funções recebem uma string ou um vetor de strings com os dados que serão salvos nos logs. Há também uma versão para cada uma dessas funções que utilizam o tipo DynamicVar, permitindo uma flexibilidade maior na hora de gerar os logs. O tipo DynamicVar é uma classe que possui um repositório a parte e você poode saber mais sobre ela aqui: http....
+A biblioteca Logger usa algumas funções para facilitar o log das informações. São elas: log, debug, info, warning error e critical. Todas essas funções recebem uma string ou um vetor de strings com os dados que serão salvos nos logs. Há também uma versão para cada uma dessas funções que utilizam o tipo DynamicVar, permitindo uma flexibilidade maior na hora de gerar os logs. O tipo DynamicVar é uma classe que possui um repositório a parte e você poode saber mais sobre ela aqui: https://github.com/rafael-tonello/DynamicVar
 
 ## log function
 está é a principal função para o log de dados e recebe um logLevel, que é um int indicando o seu nível de log, um nome para o seu log e o dado (ou vetor de dados) a serem guardados.
 
-> Note sobre o log level
+> Note sobre o log level: O log level é um número inteiro que indica a criciticade (ou importancia) do log. A bibiote Logger já possui 5 níveis de log padrão, sendo eles: Debug (log level 1), Info (log level 2), Warning (log level 3), Error (log level 4) e Critical (log level 4). Os drivers, normalmente, recebem um log level na su construção, indicando que apenas log levels maiores ou iguais à ele serão considerados como válidos e o restante será descartado.
 > 
-> Nota sobre o log name
+> Nota sobre o log name: O log name é um nome que é utilizado para identificar módulos e grupos de logs. Ele é, normalmente, adicionado pelos drivers no inicio das linhas de log, juntamente com a data e hora e o nível do log. Veja o exemplo abaixo para entender melhor o que é o nome do log.
+>
+> [2022-05-01T00:02:03-0300] [INFO] [HttpServerService] new data requested to the server
+>
+> No exemplo acima, o log name é "HttpServerService"
 
 
 
