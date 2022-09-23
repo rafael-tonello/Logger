@@ -18,11 +18,11 @@ using namespace std;
 
 
 
-#define LOGGER_LOGLEVEL_DEBUG 1
-#define LOGGER_LOGLEVEL_INFO 2
-#define LOGGER_LOGLEVEL_WARNING 3
-#define LOGGER_LOGLEVEL_ERROR 4
-#define LOGGER_LOGLEVEL_CRITICAL 5
+#define LOGGER_LOGLEVEL_DEBUG 10
+#define LOGGER_LOGLEVEL_INFO 20
+#define LOGGER_LOGLEVEL_WARNING 30
+#define LOGGER_LOGLEVEL_ERROR 40
+#define LOGGER_LOGLEVEL_CRITICAL 50
 
 class NLogger;
 
@@ -33,14 +33,14 @@ public:
 	virtual void info(string name, string msg) = 0;
 	virtual void warning(string name, string msg) = 0;
 	virtual void error(string name, string msg) = 0;
-	virtual void critical(string name, string msg, bool raiseException = false) = 0;
+	virtual void critical(string name, string msg) = 0;
 
 	virtual void log(int level, string name, vector<DynamicVar> msgs) = 0;
 	virtual void debug(string name, vector<DynamicVar> msgs) = 0;
 	virtual void info(string name, vector<DynamicVar> msgs) = 0;
 	virtual void warning(string name, vector<DynamicVar> msgs) = 0;
 	virtual void error(string name, vector<DynamicVar> msgs) = 0;
-	virtual void critical(string name, vector<DynamicVar> msgs, bool raiseException = false) = 0;
+	virtual void critical(string name, vector<DynamicVar> msgs) = 0;
 
 	static string fromList(vector<DynamicVar> items){
 		string out;
@@ -55,13 +55,13 @@ public:
 	virtual void info(string msg) = 0;
 	virtual void warning(string msg) = 0;
 	virtual void error(string msg) = 0;
-	virtual void critical(string msg, bool raiseException = true) = 0;
+	virtual void critical(string msg) = 0;
 	virtual void log(int level, vector<DynamicVar> msgs) = 0;
 	virtual void debug(vector<DynamicVar> msgs) = 0;
 	virtual void info(vector<DynamicVar> msgs) = 0;
 	virtual void warning(vector<DynamicVar> msgs) = 0;
 	virtual void error(vector<DynamicVar> msgs) = 0;
-	virtual void critical(vector<DynamicVar> msgs, bool raiseException = true) = 0;
+	virtual void critical(vector<DynamicVar> msgs) = 0;
 
 	virtual NLogger getNamedLogger(string name) = 0;
 };
@@ -80,57 +80,17 @@ private:
 	mutex listLocker;
 	mutex threadExitMutex;
 
+	mutex waitFlushMutex;
+
 	bool running = true;
 	ILogWriter *driver;
 	vector<tuple<Logger*, string, int, string>> cache;
 public:
-	ILogWriterCacher(ILogWriter *driver)
-	{
-		waiter.lock();
-		this->driver = driver;
-		thread th([&](){this->run(); });
-
-		th.detach();
-	}
-
-	~ILogWriterCacher()
-	{
-		threadExitMutex.lock();
-		running = false;
-		waiter.unlock();
-		threadExitMutex.lock();
-		threadExitMutex.unlock();
-	}
-
-	void write(Logger* sender, string msg, int level, string name)
-	{
-		listLocker.lock();
-		cache.push_back(make_tuple(sender, msg, level, name));
-		listLocker.unlock();
-
-		waiter.unlock();
-	}
-
-	void run()
-	{
-		while (running)
-		{
-			waiter.lock();
-			//if (cache.size() == 0)
-			
-			listLocker.lock();
-			vector<tuple<Logger*, string, int, string>> cacheTmp = cache;
-			cache.clear();
-			listLocker.unlock();
-
-			for (auto &c: cacheTmp)
-				driver->write(std::get<0>(c), std::get<1>(c), std::get<2>(c), std::get<3>(c));
-			
-			cacheTmp.clear();
-		}
-
-		threadExitMutex.unlock();
-	}
+	ILogWriterCacher(ILogWriter *driver);
+	~ILogWriterCacher();
+	void write(Logger* sender, string msg, int level, string name);
+	void run();
+	void flush();
 };
 
 class Logger: public ILogger{
@@ -150,6 +110,7 @@ private:
 	};
 
 	void init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog = false);
+	void flushCaches();
 public:
 
 	streambuf* cout_originalBuffer;
@@ -225,70 +186,29 @@ public:
 	void info(string name, string msg);
 	void warning(string name, string msg);
 	void error(string name, string msg);
-	void critical(string name, string msg, bool raiseException = true);
+	void critical(string name, string msg);
 
 	void log(int level, string name, vector<DynamicVar> msgs);
 	void debug(string name, vector<DynamicVar> msgs);
 	void info(string name, vector<DynamicVar> msgs);
 	void warning(string name, vector<DynamicVar> msgs);
 	void error(string name, vector<DynamicVar> msgs);
-	void critical(string name, vector<DynamicVar> msgs, bool raiseException = true);
+	void critical(string name, vector<DynamicVar> msgs);
 
 
 
-	void log(int level, string msg)
-	{
-		this->log(level, DEFAULT_LOG_NAME, msg);
-	}
-
-	void debug(string msg)
-	{
-		this->debug(DEFAULT_LOG_NAME, msg);
-	}
-	void info(string msg)
-	{
-		this->info(DEFAULT_LOG_NAME, msg);
-	}
-	void warning(string msg)
-	{
-		this->warning(DEFAULT_LOG_NAME, msg);
-	}
-	void error(string msg)
-	{
-		this->error(DEFAULT_LOG_NAME, msg);
-	}
-	void critical(string msg, bool raiseException = true)
-	{
-		this->critical(DEFAULT_LOG_NAME, msg);
-	}
-
-
-	void log(int level, vector<DynamicVar> msgs)
-	{
-		this->log(level, DEFAULT_LOG_NAME, msgs);
-	}
-	void debug(vector<DynamicVar> msgs)
-	{
-		this->debug(DEFAULT_LOG_NAME, msgs);
-	}
-	void info(vector<DynamicVar> msgs)
-	{
-		this->info(DEFAULT_LOG_NAME, msgs);
-	}
-	void warning(vector<DynamicVar> msgs)
-	{
-		this->warning(DEFAULT_LOG_NAME, msgs);
-	}
-	void error(vector<DynamicVar> msgs)
-	{
-		this->error(DEFAULT_LOG_NAME, msgs);
-	}
-	void critical(vector<DynamicVar> msgs, bool raiseException = true)
-	{
-		this->critical(DEFAULT_LOG_NAME, msgs);
-	}
-
-	
+	void log(int level, string msg);
+	void debug(string msg);
+	void info(string msg);
+	void warning(string msg);
+	void error(string msg);
+	void critical(string msg);
+	void log(int level, vector<DynamicVar> msgs);
+	void debug(vector<DynamicVar> msgs);
+	void info(vector<DynamicVar> msgs);
+	void warning(vector<DynamicVar> msgs);
+	void error(vector<DynamicVar> msgs);
+	void critical(vector<DynamicVar> msgs);
 };
 
 class NLogger{
@@ -296,76 +216,20 @@ private:
 	Logger* mainLogger;
 	string name;
 public:
-	NLogger(string name, Logger* mainLogger)
-	{
-		this->mainLogger = mainLogger;
-		this->name = name;
-	}
-
-	~NLogger()
-	{
-		this->mainLogger = NULL;
-	}
-	
-	void log(string msg, int level)
-	{
-		this->mainLogger->log(level, this->name, msg);
-	}
-
-	void debug(string msg)
-	{
-		this->mainLogger->debug(this->name, msg);
-	}
-
-	void info(string msg)
-	{
-		this->mainLogger->info(this->name, msg);
-	}
-
-	void warning(string msg)
-	{
-		this->mainLogger->warning(this->name, msg);
-	}
-
-	void error(string msg)
-	{
-		this->mainLogger->error(this->name, msg);
-	}
-
-	void critical(string msg, bool raiseException = true)
-	{
-		this->mainLogger->critical(this->name, msg, raiseException);
-	}
-
-	void log(vector<DynamicVar> msgs, int level)
-	{
-		this->mainLogger->log(level, this->name, msgs);
-	}
-
-	void debug(vector<DynamicVar> msgs)
-	{
-		this->mainLogger->debug(this->name, msgs);
-	}
-
-	void info(vector<DynamicVar> msgs)
-	{
-		this->mainLogger->info(this->name, msgs);
-	}
-
-	void warning(vector<DynamicVar> msgs)
-	{
-		this->mainLogger->warning(this->name, msgs);
-	}
-
-	void error(vector<DynamicVar> msgs)
-	{
-		this->mainLogger->error(this->name, msgs);
-	}
-
-	void critical(vector<DynamicVar> msgs, bool raiseException = true)
-	{
-		this->mainLogger->critical(this->name, msgs, raiseException);
-	}
+	NLogger(string name, Logger* mainLogger);
+	~NLogger();
+	void log(int level, string msg);
+	void debug(string msg);
+	void info(string msg);
+	void warning(string msg);
+	void error(string msg);
+	void critical(string msg);
+	void log(int level, vector<DynamicVar> msgs);
+	void debug(vector<DynamicVar> msgs);
+	void info(vector<DynamicVar> msgs);
+	void warning(vector<DynamicVar> msgs);
+	void error(vector<DynamicVar> msgs);
+	void critical(vector<DynamicVar> msgs);
 };
 
 #endif 

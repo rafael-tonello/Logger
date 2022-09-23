@@ -1,5 +1,7 @@
 #include  "logger.h" 
 
+#pragma region Logger class
+
 void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog)
 {
     //this->writers = writers;
@@ -32,6 +34,7 @@ Logger::~Logger()
         
     this->writers.clear();
     running = false;
+    this->flushCaches();
     usleep(15000);
 }
 
@@ -120,10 +123,9 @@ void Logger::error(string name, string msg){
     log(LOGGER_LOGLEVEL_ERROR, name, msg);
 }
 
-void Logger::critical(string name, string msg, bool raiseException){
+void Logger::critical(string name, string msg){
     log(LOGGER_LOGLEVEL_CRITICAL, name, msg);
-    if (raiseException)
-        throw runtime_error(msg.c_str());
+    this->flushCaches();
 }
 
 void Logger::log(int level, string name, vector<DynamicVar> msgs)
@@ -151,10 +153,9 @@ void Logger::error(string name, vector<DynamicVar> msgs)
     this->error(name, fromList(msgs));
 }
 
-void Logger::critical(string name, vector<DynamicVar> msgs, bool raiseException)
+void Logger::critical(string name, vector<DynamicVar> msgs)
 {
-    this->critical(name, fromList(msgs), raiseException);
-
+    this->critical(name, fromList(msgs));
 }
 
 string Logger::levelToString(int level, string defaultName)
@@ -280,3 +281,193 @@ string Logger::identLog(string log, string prefix)
     auto temp = stringReplace(log, "\n", "\r\t"+prefix);
     return stringReplace(temp, "\r\t", "\n");
 }
+
+void Logger::log(int level, string msg)
+{
+    this->log(level, DEFAULT_LOG_NAME, msg);
+}
+
+void Logger::debug(string msg)
+{
+    this->debug(DEFAULT_LOG_NAME, msg);
+}
+void Logger::info(string msg)
+{
+    this->info(DEFAULT_LOG_NAME, msg);
+}
+void Logger::warning(string msg)
+{
+    this->warning(DEFAULT_LOG_NAME, msg);
+}
+void Logger::error(string msg)
+{
+    this->error(DEFAULT_LOG_NAME, msg);
+}
+void Logger::critical(string msg)
+{
+    this->critical(DEFAULT_LOG_NAME, msg);
+}
+
+void Logger::log(int level, vector<DynamicVar> msgs)
+{
+    this->log(level, DEFAULT_LOG_NAME, msgs);
+}
+void Logger::debug(vector<DynamicVar> msgs)
+{
+    this->debug(DEFAULT_LOG_NAME, msgs);
+}
+void Logger::info(vector<DynamicVar> msgs)
+{
+    this->info(DEFAULT_LOG_NAME, msgs);
+}
+void Logger::warning(vector<DynamicVar> msgs)
+{
+    this->warning(DEFAULT_LOG_NAME, msgs);
+}
+void Logger::error(vector<DynamicVar> msgs)
+{
+    this->error(DEFAULT_LOG_NAME, msgs);
+}
+void Logger::critical(vector<DynamicVar> msgs)
+{
+    this->critical(DEFAULT_LOG_NAME, msgs);
+}
+
+#pragma endregion
+
+#pragma region ILogWriterCacher class
+
+ILogWriterCacher::ILogWriterCacher(ILogWriter *driver)
+{
+    waiter.lock();
+    this->driver = driver;
+    thread th([&](){this->run(); });
+
+    th.detach();
+}
+
+ILogWriterCacher::~ILogWriterCacher()
+{
+    threadExitMutex.lock();
+    running = false;
+    waiter.unlock();
+    threadExitMutex.lock();
+    threadExitMutex.unlock();
+}
+
+void ILogWriterCacher::write(Logger* sender, string msg, int level, string name)
+{
+    listLocker.lock();
+    cache.push_back(make_tuple(sender, msg, level, name));
+    listLocker.unlock();
+
+    waiter.unlock();
+}
+
+void ILogWriterCacher::run()
+{
+    while (running)
+    {
+        waiter.lock();
+        //if (cache.size() == 0)
+        
+        listLocker.lock();
+        vector<tuple<Logger*, string, int, string>> cacheTmp = cache;
+        cache.clear();
+        listLocker.unlock();
+
+        for (auto &c: cacheTmp)
+            driver->write(std::get<0>(c), std::get<1>(c), std::get<2>(c), std::get<3>(c));
+        
+        cacheTmp.clear();
+
+        waitFlushMutex.unlock();
+    }
+
+    threadExitMutex.unlock();
+}
+
+void ILogWriterCacher::flush()
+{
+    waitFlushMutex.lock();
+    waiter.unlock();
+    waitFlushMutex.lock();
+    waitFlushMutex.unlock();
+}
+
+#pragma endregion
+
+#pragma region NLogger class
+
+NLogger::NLogger(string name, Logger* mainLogger)
+{
+    this->mainLogger = mainLogger;
+    this->name = name;
+}
+
+NLogger::~NLogger()
+{
+    this->mainLogger = NULL;
+}
+
+void NLogger::log(int level, string msg)
+{
+    this->mainLogger->log(level, this->name, msg);
+}
+
+void NLogger::debug(string msg)
+{
+    this->mainLogger->debug(this->name, msg);
+}
+
+void NLogger::info(string msg)
+{
+    this->mainLogger->info(this->name, msg);
+}
+
+void NLogger::warning(string msg)
+{
+    this->mainLogger->warning(this->name, msg);
+}
+
+void NLogger::error(string msg)
+{
+    this->mainLogger->error(this->name, msg);
+}
+
+void NLogger::critical(string msg)
+{
+    this->mainLogger->critical(this->name, msg);
+}
+
+void NLogger::log(int level, vector<DynamicVar> msgs)
+{
+    this->mainLogger->log(level, this->name, msgs);
+}
+
+void NLogger::debug(vector<DynamicVar> msgs)
+{
+    this->mainLogger->debug(this->name, msgs);
+}
+
+void NLogger::info(vector<DynamicVar> msgs)
+{
+    this->mainLogger->info(this->name, msgs);
+}
+
+void NLogger::warning(vector<DynamicVar> msgs)
+{
+    this->mainLogger->warning(this->name, msgs);
+}
+
+void NLogger::error(vector<DynamicVar> msgs)
+{
+    this->mainLogger->error(this->name, msgs);
+}
+
+void NLogger::critical(vector<DynamicVar> msgs)
+{
+    this->mainLogger->critical(this->name, msgs);
+}
+
+#pragma endregion
