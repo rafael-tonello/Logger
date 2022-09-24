@@ -111,8 +111,16 @@ void Logger::debug(string name, string msg){
     log(LOGGER_LOGLEVEL_DEBUG, name, msg);
 }
 
+void Logger::debug2(string name, string msg){
+    log(LOGGER_LOGLEVEL_DEBUG2, name, msg);
+}
+
 void Logger::Logger::info(string name, string msg){
     log(LOGGER_LOGLEVEL_INFO, name, msg);
+}
+
+void Logger::Logger::info2(string name, string msg){
+    log(LOGGER_LOGLEVEL_INFO2, name, msg);
 }
 
 void Logger::warning(string name, string msg){
@@ -138,9 +146,19 @@ void Logger::debug(string name, vector<DynamicVar> msgs)
     this->debug(name, fromList(msgs));
 }
 
+void Logger::debug2(string name, vector<DynamicVar> msgs)
+{
+    this->debug2(name, fromList(msgs));
+}
+
 void Logger::info(string name, vector<DynamicVar> msgs)
 {
     this->info(name, fromList(msgs));
+}
+
+void Logger::info2(string name, vector<DynamicVar> msgs)
+{
+    this->info2(name, fromList(msgs));
 }
 
 void Logger::warning(string name, vector<DynamicVar> msgs)
@@ -291,9 +309,17 @@ void Logger::debug(string msg)
 {
     this->debug(DEFAULT_LOG_NAME, msg);
 }
+void Logger::debug2(string msg)
+{
+    this->debug2(DEFAULT_LOG_NAME, msg);
+}
 void Logger::info(string msg)
 {
     this->info(DEFAULT_LOG_NAME, msg);
+}
+void Logger::info2(string msg)
+{
+    this->info2(DEFAULT_LOG_NAME, msg);
 }
 void Logger::warning(string msg)
 {
@@ -316,9 +342,17 @@ void Logger::debug(vector<DynamicVar> msgs)
 {
     this->debug(DEFAULT_LOG_NAME, msgs);
 }
+void Logger::debug2(vector<DynamicVar> msgs)
+{
+    this->debug2(DEFAULT_LOG_NAME, msgs);
+}
 void Logger::info(vector<DynamicVar> msgs)
 {
     this->info(DEFAULT_LOG_NAME, msgs);
+}
+void Logger::info2(vector<DynamicVar> msgs)
+{
+    this->info2(DEFAULT_LOG_NAME, msgs);
 }
 void Logger::warning(vector<DynamicVar> msgs)
 {
@@ -419,10 +453,18 @@ void NLogger::debug(string msg)
 {
     this->mainLogger->debug(this->name, msg);
 }
+void NLogger::debug2(string msg)
+{
+    this->mainLogger->debug2(this->name, msg);
+}
 
 void NLogger::info(string msg)
 {
     this->mainLogger->info(this->name, msg);
+}
+void NLogger::info2(string msg)
+{
+    this->mainLogger->info2(this->name, msg);
 }
 
 void NLogger::warning(string msg)
@@ -449,10 +491,18 @@ void NLogger::debug(vector<DynamicVar> msgs)
 {
     this->mainLogger->debug(this->name, msgs);
 }
+void NLogger::debug2(vector<DynamicVar> msgs)
+{
+    this->mainLogger->debug2(this->name, msgs);
+}
 
 void NLogger::info(vector<DynamicVar> msgs)
 {
     this->mainLogger->info(this->name, msgs);
+}
+void NLogger::info2(vector<DynamicVar> msgs)
+{
+    this->mainLogger->info2(this->name, msgs);
 }
 
 void NLogger::warning(vector<DynamicVar> msgs)

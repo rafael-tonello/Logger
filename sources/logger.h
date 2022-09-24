@@ -18,13 +18,16 @@ using namespace std;
 
 
 
-#define LOGGER_LOGLEVEL_DEBUG 10
-#define LOGGER_LOGLEVEL_INFO 20
-#define LOGGER_LOGLEVEL_WARNING 30
-#define LOGGER_LOGLEVEL_ERROR 40
-#define LOGGER_LOGLEVEL_CRITICAL 50
+#define LOGGER_LOGLEVEL_DEBUG2 10
+#define LOGGER_LOGLEVEL_DEBUG 20
+#define LOGGER_LOGLEVEL_INFO2 20
+#define LOGGER_LOGLEVEL_INFO 30
+#define LOGGER_LOGLEVEL_WARNING 40
+#define LOGGER_LOGLEVEL_ERROR 50
+#define LOGGER_LOGLEVEL_CRITICAL 60
 
 //A helper do diferenciate calls between (string arg) functions and (vector<DynamicVar> args) functions
+
 #define DVV vector<DynamicVar>
 
 class NLogger;
@@ -34,14 +37,18 @@ class ILogger{
 public:
 	virtual void log(int level, string name, string msg) = 0;
 	virtual void debug(string name, string msg) = 0;
+	virtual void debug2(string name, string msg) = 0;
 	virtual void info(string name, string msg) = 0;
+	virtual void info2(string name, string msg) = 0;
 	virtual void warning(string name, string msg) = 0;
 	virtual void error(string name, string msg) = 0;
 	virtual void critical(string name, string msg) = 0;
 
 	virtual void log(int level, string name, vector<DynamicVar> msgs) = 0;
 	virtual void debug(string name, vector<DynamicVar> msgs) = 0;
+	virtual void debug2(string name, vector<DynamicVar> msgs) = 0;
 	virtual void info(string name, vector<DynamicVar> msgs) = 0;
+	virtual void info2(string name, vector<DynamicVar> msgs) = 0;
 	virtual void warning(string name, vector<DynamicVar> msgs) = 0;
 	virtual void error(string name, vector<DynamicVar> msgs) = 0;
 	virtual void critical(string name, vector<DynamicVar> msgs) = 0;
@@ -56,13 +63,18 @@ public:
 
 	virtual void log(int level, string msg) = 0;
 	virtual void debug(string msg) = 0;
+	virtual void debug2(string msg) = 0;
 	virtual void info(string msg) = 0;
+	virtual void info2(string msg) = 0;
 	virtual void warning(string msg) = 0;
 	virtual void error(string msg) = 0;
 	virtual void critical(string msg) = 0;
+
 	virtual void log(int level, vector<DynamicVar> msgs) = 0;
 	virtual void debug(vector<DynamicVar> msgs) = 0;
+	virtual void debug2(vector<DynamicVar> msgs) = 0;
 	virtual void info(vector<DynamicVar> msgs) = 0;
+	virtual void info2(vector<DynamicVar> msgs) = 0;
 	virtual void warning(vector<DynamicVar> msgs) = 0;
 	virtual void error(vector<DynamicVar> msgs) = 0;
 	virtual void critical(vector<DynamicVar> msgs) = 0;
@@ -106,7 +118,9 @@ private:
 	void threadReadStdBuffer();
 
 	map<int, string> logLevels {
+		{LOGGER_LOGLEVEL_DEBUG2, "DEBUG2"},
 		{LOGGER_LOGLEVEL_DEBUG, "DEBUG"},
+		{LOGGER_LOGLEVEL_INFO2, "INFO2"},
 		{LOGGER_LOGLEVEL_INFO, "INFO"},
 		{LOGGER_LOGLEVEL_WARNING, "WARNING"},
 		{LOGGER_LOGLEVEL_ERROR, "ERROR"},
@@ -187,14 +201,18 @@ public:
 
 	void log(int level, string name, string msg);
 	void debug(string name, string msg);
+	void debug2(string name, string msg);
 	void info(string name, string msg);
+	void info2(string name, string msg);
 	void warning(string name, string msg);
 	void error(string name, string msg);
 	void critical(string name, string msg);
 
 	void log(int level, string name, vector<DynamicVar> msgs);
 	void debug(string name, vector<DynamicVar> msgs);
+	void debug2(string name, vector<DynamicVar> msgs);
 	void info(string name, vector<DynamicVar> msgs);
+	void info2(string name, vector<DynamicVar> msgs);
 	void warning(string name, vector<DynamicVar> msgs);
 	void error(string name, vector<DynamicVar> msgs);
 	void critical(string name, vector<DynamicVar> msgs);
@@ -203,13 +221,18 @@ public:
 
 	void log(int level, string msg);
 	void debug(string msg);
+	void debug2(string msg);
 	void info(string msg);
+	void info2(string msg);
 	void warning(string msg);
 	void error(string msg);
 	void critical(string msg);
+
 	void log(int level, vector<DynamicVar> msgs);
 	void debug(vector<DynamicVar> msgs);
+	void debug2(vector<DynamicVar> msgs);
 	void info(vector<DynamicVar> msgs);
+	void info2(vector<DynamicVar> msgs);
 	void warning(vector<DynamicVar> msgs);
 	void error(vector<DynamicVar> msgs);
 	void critical(vector<DynamicVar> msgs);
@@ -224,13 +247,18 @@ public:
 	~NLogger();
 	void log(int level, string msg);
 	void debug(string msg);
+	void debug2(string msg);
 	void info(string msg);
+	void info2(string msg);
 	void warning(string msg);
 	void error(string msg);
 	void critical(string msg);
+
 	void log(int level, vector<DynamicVar> msgs);
 	void debug(vector<DynamicVar> msgs);
+	void debug2(vector<DynamicVar> msgs);
 	void info(vector<DynamicVar> msgs);
+	void info2(vector<DynamicVar> msgs);
 	void warning(vector<DynamicVar> msgs);
 	void error(vector<DynamicVar> msgs);
 	void critical(vector<DynamicVar> msgs);
