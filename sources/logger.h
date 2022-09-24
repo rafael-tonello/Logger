@@ -24,7 +24,11 @@ using namespace std;
 #define LOGGER_LOGLEVEL_ERROR 40
 #define LOGGER_LOGLEVEL_CRITICAL 50
 
+//A helper do diferenciate calls between (string arg) functions and (vector<DynamicVar> args) functions
+#define DVV vector<DyanmicVar>
+
 class NLogger;
+
 
 class ILogger{
 public:
