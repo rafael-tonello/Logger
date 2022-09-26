@@ -199,7 +199,7 @@ public:
 	
 	
 	NLogger getNamedLogger(string name);
-	NLogger* getNamedLoggerP(string name) = 0;
+	NLogger* getNamedLoggerP(string name);
 
 	void log(int level, string name, string msg);
 	void debug(string name, string msg);
