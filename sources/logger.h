@@ -80,6 +80,7 @@ public:
 	virtual void critical(vector<DynamicVar> msgs) = 0;
 
 	virtual NLogger getNamedLogger(string name) = 0;
+	virtual NLogger* getNamedLoggerP(string name) = 0;
 };
 
 class Logger;
@@ -198,6 +199,7 @@ public:
 	
 	
 	NLogger getNamedLogger(string name);
+	NLogger* getNamedLoggerP(string name) = 0;
 
 	void log(int level, string name, string msg);
 	void debug(string name, string msg);
@@ -240,11 +242,15 @@ public:
 
 class NLogger{
 private:
-	Logger* mainLogger;
+	ILogger* mainLogger;
 	string name;
 public:
-	NLogger(string name, Logger* mainLogger);
+	NLogger();
+	NLogger(string name, ILogger* mainLogger);
 	~NLogger();
+	void setLogName(string name);
+	void setMainLogger(ILogger* mainLogger);
+
 	void log(int level, string msg);
 	void debug(string msg);
 	void debug2(string msg);
