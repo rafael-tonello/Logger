@@ -281,6 +281,11 @@ NLogger Logger::getNamedLogger(string name)
     return namedLogger;
 }
 
+NLogger* Logger::getNamedLoggerP(string name)
+{
+    return new NLogger(name, this);
+}
+
 string Logger::stringReplace(string source, string replace, string by)
 {
     if (source.find(replace) != string::npos)
@@ -433,15 +438,31 @@ void ILogWriterCacher::flush()
 
 #pragma region NLogger class
 
-NLogger::NLogger(string name, Logger* mainLogger)
+
+NLogger::NLogger()
 {
-    this->mainLogger = mainLogger;
-    this->name = name;
+
+}
+
+NLogger::NLogger(string name, ILogger* mainLogger)
+{
+    this->setMainLogger(mainLogger);
+    this->setLogName(name);
 }
 
 NLogger::~NLogger()
 {
     this->mainLogger = NULL;
+}
+
+void setLogName(string name)
+{
+
+}
+
+void setMainLogger(ILogger* mainLogger)
+{
+
 }
 
 void NLogger::log(int level, string msg)
