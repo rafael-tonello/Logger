@@ -22,7 +22,7 @@ void LoggerFileWriter::write(Logger* sender, string msg, int level, string name)
         auto identPrefix = string(lineHeader.size(), ' ');
         msg = Logger::identLog(msg, identPrefix);
 
-        file << lineHeader << " " << msg << endl;
+        file << lineHeader << msg << endl;
     }
 }
 
