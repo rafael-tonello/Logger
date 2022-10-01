@@ -154,6 +154,9 @@ public:
 	//an util function to return the current time in a string
 	static string getTime();
 
+	static string remoteLastLineBreak(string data);
+	
+
 	/** an util function that returnt he current date and time in a string 
 	 * @param date indicates if the result should contains the current date
 	 * @param date indicates if the result should contains the current time
