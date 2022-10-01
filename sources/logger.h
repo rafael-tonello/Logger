@@ -20,11 +20,11 @@ using namespace std;
 
 #define LOGGER_LOGLEVEL_DEBUG2 10
 #define LOGGER_LOGLEVEL_DEBUG 20
-#define LOGGER_LOGLEVEL_INFO2 20
-#define LOGGER_LOGLEVEL_INFO 30
-#define LOGGER_LOGLEVEL_WARNING 40
-#define LOGGER_LOGLEVEL_ERROR 50
-#define LOGGER_LOGLEVEL_CRITICAL 60
+#define LOGGER_LOGLEVEL_INFO2 30
+#define LOGGER_LOGLEVEL_INFO 40
+#define LOGGER_LOGLEVEL_WARNING 50
+#define LOGGER_LOGLEVEL_ERROR 60
+#define LOGGER_LOGLEVEL_CRITICAL 70
 
 //A helper do diferenciate calls between (string arg) functions and (vector<DynamicVar> args) functions
 
