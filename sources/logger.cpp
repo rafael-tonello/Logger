@@ -73,6 +73,7 @@ void Logger::threadReadStdBuffer()
         while (running)
         {
             auto tmp = coutInterceptor.str();
+            tmp = remoteLastLineBreak(tmp);
             if (tmp.size() > 0)
             {
                 this->info("stdout", tmp);
@@ -81,6 +82,7 @@ void Logger::threadReadStdBuffer()
             }
 
             tmp = cerrInterceptor.str();
+            tmp = remoteLastLineBreak(tmp);
             if (tmp.size() > 0)
             {
                 this->error("stderr", tmp);
@@ -89,6 +91,7 @@ void Logger::threadReadStdBuffer()
             }
 
             tmp = clogInterceptor.str();
+            tmp = remoteLastLineBreak(tmp);
             if (tmp.size() > 0)
             {
                 this->warning("stdlog", tmp);
@@ -233,6 +236,16 @@ string Logger::getTime()
 
 }
 
+string Logger::remoteLastLineBreak(string data)
+{
+    if (data.find("\r\n") == data.size()-2)
+        return data.substr(0, data.size()-2);
+    else if (data.find("\r") == data.size()-1 || data.find("\n") == data.size()-1)
+        return data.substr(0, data.size()-1);
+    
+    return data;
+}
+
 string Logger::generateDateTimeString(bool date, bool time)
 {
 
@@ -255,7 +268,6 @@ string Logger::generateDateTimeString(bool date, bool time)
 
     return result;
 }
-
 
 string Logger::generateLineBegining( string level, string name, bool generateDateTime)
 {
