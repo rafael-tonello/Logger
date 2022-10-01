@@ -458,14 +458,14 @@ NLogger::~NLogger()
     this->mainLogger = NULL;
 }
 
-void setLogName(string name)
+void NLogger::setLogName(string name)
 {
-
+    this->name = name;
 }
 
-void setMainLogger(ILogger* mainLogger)
+void NLogger::setMainLogger(ILogger* mainLogger)
 {
-
+    this->mainLogger = mainLogger;
 }
 
 void NLogger::log(int level, string msg)
