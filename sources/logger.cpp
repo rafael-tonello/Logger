@@ -176,6 +176,12 @@ void Logger::critical(string name, vector<DynamicVar> msgs)
     this->critical(name, fromList(msgs));
 }
 
+void Logger::flushCaches()
+{
+    for (auto &c: writers)
+        c->flush();
+}
+
 string Logger::levelToString(int level, string defaultName)
 {
     if (this->logLevels.count(level))
@@ -183,9 +189,6 @@ string Logger::levelToString(int level, string defaultName)
     else
         return defaultName;
 }
-
-
-
 
 void Logger::addLogLevel(int logLevel, string levelDescription)
 {
