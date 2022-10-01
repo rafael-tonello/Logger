@@ -155,7 +155,6 @@ public:
 	static string getTime();
 
 	static string remoteLastLineBreak(string data);
-	
 
 	/** an util function that returnt he current date and time in a string 
 	 * @param date indicates if the result should contains the current date

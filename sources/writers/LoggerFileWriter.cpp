@@ -3,7 +3,7 @@
 LoggerFileWriter::LoggerFileWriter(string fname, int logLevel)
 {
     this->logLevel = logLevel;
-    file = ofstream(fname);
+    file = ofstream(fname, ios::app);
     if (!file.is_open())
         throw runtime_error("Can't open log file to write");
     
