@@ -393,7 +393,6 @@ void Logger::critical(vector<DynamicVar> msgs)
 
 ILogWriterCacher::ILogWriterCacher(ILogWriter *driver)
 {
-    waiter.lock();
     this->driver = driver;
     thread th([&](){this->run(); });
 
@@ -404,7 +403,7 @@ ILogWriterCacher::~ILogWriterCacher()
 {
     threadExitMutex.lock();
     running = false;
-    waiter.unlock();
+    waiter.notify_one();
     threadExitMutex.lock();
     threadExitMutex.unlock();
 }
@@ -415,14 +414,16 @@ void ILogWriterCacher::write(Logger* sender, string msg, int level, string name)
     cache.push_back(make_tuple(sender, msg, level, name));
     listLocker.unlock();
 
-    waiter.unlock();
+    waiter.notify_one();
 }
 
 void ILogWriterCacher::run()
 {
+    mutex mtx;
+    unique_lock<std::mutex> lk(mtx);
     while (running)
     {
-        waiter.lock();
+        
         //if (cache.size() == 0)
         
         listLocker.lock();
@@ -436,6 +437,8 @@ void ILogWriterCacher::run()
         cacheTmp.clear();
 
         waitFlushMutex.unlock();
+
+        waiter.wait(lk);
     }
 
     threadExitMutex.unlock();
@@ -444,7 +447,7 @@ void ILogWriterCacher::run()
 void ILogWriterCacher::flush()
 {
     waitFlushMutex.lock();
-    waiter.unlock();
+    waiter.notify_one();
     waitFlushMutex.lock();
     waitFlushMutex.unlock();
 }

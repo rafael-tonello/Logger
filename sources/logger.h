@@ -12,6 +12,7 @@
 #include <map>
 #include <sstream>
 #include <mutex>
+#include <condition_variable>
 
 using namespace std;
 
@@ -93,7 +94,7 @@ public:
 
 class ILogWriterCacher: ILogWriter{
 private:
-	mutex waiter;
+	condition_variable waiter;
 	mutex listLocker;
 	mutex threadExitMutex;
 
