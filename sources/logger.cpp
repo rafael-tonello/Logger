@@ -437,8 +437,8 @@ void ILogWriterCacher::run()
         cacheTmp.clear();
 
         waitFlushMutex.unlock();
-
-        waiter.wait(lk);
+        if (cache.size() == 0)
+            waiter.wait(lk);
     }
 
     threadExitMutex.unlock();
