@@ -8,8 +8,9 @@ PROJ_NAME=tests
 CUSTOM_INCLUDE_PATH = -I"./sources"
 
 #main app includes
-CUSTOM_INCLUDE_PATH += -I"../sources
-CUSTOM_INCLUDE_PATH += -I"../sources/Shared/Misc"
+CUSTOM_INCLUDE_PATH += -I"../sources"
+CUSTOM_INCLUDE_PATH += -I"../sources/common/libs/DynamicVar/sources"
+CUSTOM_INCLUDE_PATH += -I"../sources/common/libs/libs.json_maker/sources"
 
 
 
@@ -18,7 +19,8 @@ C_SOURCE=$(wildcard ./sources/*.cpp)
 
 #main app files
 C_SOURCE+=$(wildcard ../sources/*.cpp)
-C_SOURCE+=$(wildcard ../sources/Shared/Misc/*.cpp)
+C_SOURCE+=$(wildcard ../sources/common/libs/DynamicVar/sources/*.cpp)
+C_SOURCE+=$(wildcard ../sources/common/libs/libs.json_maker/sources/*.cpp)
   
 # .h files
 #test app files
@@ -26,13 +28,15 @@ H_SOURCE=$(wildcard ./sources/*.h)
 
 #main app files
 H_SOURCE+=$(wildcard ../sources//*.h)
-H_SOURCE+=$(wildcard ../sources/Shared/Misc/*.h)
+H_SOURCE+=$(wildcard ../sources/Common/libs/DynamicVar/sources/*.h)
+H_SOURCE+=$(wildcard ../sources/Common/libs/libs.json_maker/sources/*.h)
 
 objFolder:
 	@ mkdir -p objects/tests/
 
 #	the main app directories
-	@ mkdir -p objects/main/Shared/Misc
+	@ mkdir -p objects/main/Common/libs/DynamicVar/sources
+	@ mkdir -p objects/main/Common/libs/libs.json_maker/sources
 	
 
 prebuild:
@@ -55,8 +59,6 @@ CC_FLAGS=-D__TESTING__ \
 		 -c			\
          -ansi      \
 		 -pthread   \
-		 -lssl		\
-		 -lcrypto	\
 		 -g			\
 		 -std=c++17 \
 		 -I"./sources/" \
@@ -71,8 +73,6 @@ CC_FLAGS=-D__TESTING__ \
 LK_FLAGS=-D__TESTING__\
          -ansi      \
 		 -pthread   \
-		 -lssl		\
-		 -lcrypto	\
 		 -g			\
 		 -std=c++17 \
 		 -I"./sources/" \

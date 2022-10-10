@@ -9,11 +9,11 @@ using namespace std;
 class LoggerLambdaWriter: public ILogWriter
 {
 public:
-	function<void(Logger* sender, string msg, int level, string name)> writerFunc;
+	function<void(Logger* sender, string msg, int level, string name, std::time_t dateTime)> writerFunc;
 public:
-	LoggerLambdaWriter(function<void(Logger* sender, string msg, int level, string name)> writerFunc);
+	LoggerLambdaWriter(function<void(Logger* sender, string msg, int level, string name, std::time_t dateTime)> writerFunc);
 	
-	void write(Logger* sender, string msg, int level, string name);
+	void write(Logger* sender, string msg, int level, string name, std::time_t dateTime);
 };
  
 #endif 

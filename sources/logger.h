@@ -88,7 +88,7 @@ class Logger;
 
 class ILogWriter{
 public:
-	virtual void write(Logger* sender, string msg, int level, string name) = 0;
+	virtual void write(Logger* sender, string msg, int level, string name, std::time_t dateTime) = 0;
 };
 
 
@@ -102,11 +102,11 @@ private:
 
 	bool running = true;
 	ILogWriter *driver;
-	vector<tuple<Logger*, string, int, string>> cache;
+	vector<tuple<Logger*, string, int, string, time_t>> cache;
 public:
 	ILogWriterCacher(ILogWriter *driver);
 	~ILogWriterCacher();
-	void write(Logger* sender, string msg, int level, string name);
+	void write(Logger* sender, string msg, int level, string name, time_t dateTime);
 	void run();
 	void flush();
 };
@@ -150,10 +150,12 @@ public:
 	void restoreStdout();
 
 	//an util function to return current date in a string
-	static string getDate();
+	static string getDateString(std::time_t rawTime);
 
 	//an util function to return the current time in a string
-	static string getTime();
+	static string getTimeString(std::time_t rawTime);
+
+	static std::time_t getRawTime();
 
 	static string remoteLastLineBreak(string data);
 
@@ -161,16 +163,16 @@ public:
 	 * @param date indicates if the result should contains the current date
 	 * @param date indicates if the result should contains the current time
 	 * @return return a date and time string*/
-	static string generateDateTimeString(bool date = true, bool time = true);
+	static string generateDateTimeString(time_t dateTime, bool date = true, bool time = true);
 
 	/** an utils function that returns a string to be put in the start of log lines
 	 * @param name the name of the log
 	 * @param level the log level of the line
 	 * @param generateDateTime indicates if the date and time should be included in the result
 	 * @return generate a head to log lines or log texts*/
-	static string generateLineBegining(string level, string name, bool generateDateTime = true);
+	static string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1);
 
-	static string generateLineBegining(Logger *logger, int level, string name, bool generateDateTime = true);
+	static string generateLineBegining(Logger *logger, int level, string name, bool generateDateTime = true, time_t dateTime = -1);
 
 	/** An utils function to ident multi line logs items. Basically, this function put the 'prefix' in the beginning of each line.
 	 * @param log the multi line log text

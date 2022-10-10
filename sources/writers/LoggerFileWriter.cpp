@@ -14,10 +14,10 @@ LoggerFileWriter::~LoggerFileWriter()
     file.close();
 }
 
-void LoggerFileWriter::write(Logger* sender, string msg, int level, string name){
+void LoggerFileWriter::write(Logger* sender, string msg, int level, string name, std::time_t dateTime){
     if (level >= logLevel)
     {
-        string lineHeader = Logger::generateLineBegining(sender, level, name);
+        string lineHeader = Logger::generateLineBegining(sender, level, name, dateTime);
         
         auto identPrefix = string(lineHeader.size(), ' ');
         msg = Logger::identLog(msg, identPrefix);

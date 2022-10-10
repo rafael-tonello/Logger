@@ -107,7 +107,7 @@ void Logger::threadReadStdBuffer()
 void Logger::log(int level, string name, string msg)
 {
     for (auto &c : this->writers)
-        c->write(this, msg, level, name);
+        c->write(this, msg, level, name, getRawTime());
 }
 
 void Logger::debug(string name, string msg){
@@ -206,29 +206,31 @@ map<int, string> Logger::getLogLevels()
 
 
 
-string Logger::getDate()
+std::time_t Logger::getRawTime()
 {
-
     std::time_t rawtime;
+    std::time(&rawtime);
+
+    return rawtime;
+}
+
+string Logger::getDateString(std::time_t rawTime)
+{
     std::tm* timeinfo;
     char buffer [80];
-
-    std::time(&rawtime);
-    timeinfo = std::localtime(&rawtime);
+    timeinfo = std::localtime(&rawTime);
 
     std::strftime(buffer,80,"%Y-%m-%d",timeinfo);
 
     return string(buffer);
 }
 
-string Logger::getTime()
+string Logger::getTimeString(std::time_t rawTime)
 {
-    std::time_t rawtime;
     std::tm* timeinfo;
     char buffer [80];
 
-    std::time(&rawtime);
-    timeinfo = std::localtime(&rawtime);
+    timeinfo = std::localtime(&rawTime);
 
     std::strftime(buffer,80,"%H:%M:%S%z",timeinfo);
 
@@ -246,17 +248,17 @@ string Logger::remoteLastLineBreak(string data)
     return data;
 }
 
-string Logger::generateDateTimeString(bool date, bool time)
+string Logger::generateDateTimeString(time_t dateTime, bool date, bool time)
 {
 
     string result = "";
 
     if (date)
-        result = getDate();
+        result = getDateString(dateTime);
 
     if (time)
     {
-        string time = getTime();
+        string time = getTimeString(dateTime);
         if (time != "")
         {
             if (result != "")
@@ -269,12 +271,16 @@ string Logger::generateDateTimeString(bool date, bool time)
     return result;
 }
 
-string Logger::generateLineBegining( string level, string name, bool generateDateTime)
+string Logger::generateLineBegining( string level, string name, bool generateDateTime, time_t dateTime)
 {
     string prefix = "";
     
     if (generateDateTime)
-        prefix += "["+Logger::generateDateTimeString()+"] ";
+    {
+        if (dateTime == -1)
+            dateTime = getRawTime();
+        prefix += "["+Logger::generateDateTimeString(dateTime)+"] ";
+    }
 
     prefix += "["+level + "] ";
     
@@ -285,9 +291,9 @@ string Logger::generateLineBegining( string level, string name, bool generateDat
     return prefix;
 }
 
-string Logger::generateLineBegining(Logger *logger, int level, string name, bool generateDateTime)
+string Logger::generateLineBegining(Logger *logger, int level, string name, bool generateDateTime, time_t dateTime)
 {
-    return Logger::generateLineBegining(logger->levelToString(level), name, generateDateTime);
+    return Logger::generateLineBegining(logger->levelToString(level), name, generateDateTime, dateTime);
 }
 
 NLogger Logger::getNamedLogger(string name)
@@ -408,10 +414,10 @@ ILogWriterCacher::~ILogWriterCacher()
     threadExitMutex.unlock();
 }
 
-void ILogWriterCacher::write(Logger* sender, string msg, int level, string name)
+void ILogWriterCacher::write(Logger* sender, string msg, int level, string name, time_t dateTime)
 {
     listLocker.lock();
-    cache.push_back(make_tuple(sender, msg, level, name));
+    cache.push_back(make_tuple(sender, msg, level, name, dateTime));
     listLocker.unlock();
 
     waiter.notify_one();
@@ -427,12 +433,12 @@ void ILogWriterCacher::run()
         //if (cache.size() == 0)
         
         listLocker.lock();
-        vector<tuple<Logger*, string, int, string>> cacheTmp = cache;
+        vector<tuple<Logger*, string, int, string, time_t>> cacheTmp = cache;
         cache.clear();
         listLocker.unlock();
 
         for (auto &c: cacheTmp)
-            driver->write(std::get<0>(c), std::get<1>(c), std::get<2>(c), std::get<3>(c));
+            driver->write(std::get<0>(c), std::get<1>(c), std::get<2>(c), std::get<3>(c), std::get<4>(c));
         
         cacheTmp.clear();
 

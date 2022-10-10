@@ -8,13 +8,13 @@ LoggerConsoleWriter::LoggerConsoleWriter(int logLevel, bool useColors, bool disp
     this->displayDateTime = displayDateTime;
 }
  
-void LoggerConsoleWriter::write(Logger* sender, string msg, int level, string name){
+void LoggerConsoleWriter::write(Logger* sender, string msg, int level, string name, std::time_t dateTime){
 
     if (level >= logLevel)
     {
         if (displayLinePrefix)
         {
-            auto ls = Logger::generateLineBegining(sender, level, name, displayDateTime);
+            auto ls = Logger::generateLineBegining(sender, level, name, displayDateTime, dateTime);
             auto identPrefix = string(ls.size(), ' ');
             msg = Logger::identLog(msg, identPrefix);
 
