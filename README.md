@@ -130,3 +130,11 @@ A função critical possui um parâmetro adicional e opcional (raiseException) q
   	[ ] Remove exception from critical function 
 	[ ] Critical function must flush library
 ```
+
+## tests
+```
+    [ ] logger
+    [ ] logger->LoggerConsoleWriter
+    [ ] logger->LoggerFileWriter
+    [ ] logger->LoggerLambdaWriter
+```
