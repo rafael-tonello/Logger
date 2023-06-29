@@ -2,7 +2,7 @@
 
 #pragma region Logger class
 
-void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog)
+void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, bool tryToIdentifyLogLevelOfStdoutMessages)
 {
     //this->writers = writers;
 
@@ -13,6 +13,7 @@ void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog)
     }
 
     this->intercepCoutCerrAndCLog = intercepCoutCerrAndCLog;
+    this->tryToIdentifyLogLevelOfStdoutMessages = tryToIdentifyLogLevelOfStdoutMessages;
 
 
     if (intercepCoutCerrAndCLog)
@@ -23,7 +24,7 @@ void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog)
     }
 }
 
-Logger::Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog){
+Logger::Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, bool tryToIdentifyLogLevelOfStdoutMessages){
     this->init(writers, intercepCoutCerrAndCLog);
 }
 
@@ -76,7 +77,33 @@ void Logger::threadReadStdBuffer()
             tmp = remoteLastLineBreak(tmp);
             if (tmp.size() > 0)
             {
-                this->info("stdout", tmp);
+                if (tryToIdentifyLogLevelOfStdoutMessages)
+                {
+                    string tmp2;
+                    if (tmp.size() > 25)
+                        tmp2 = tmp.substr(0, 25);
+                    else
+                        tmp2 = tmp;
+
+                    if (tmp2.find("debug") != string::npos)
+                        this->debug("stdout", tmp);
+                    else if (tmp2.find("debug2") != string::npos)
+                        this->debug2("stdout", tmp);
+                    else if (tmp2.find("info2") != string::npos)
+                        this->info2("stdout", tmp);
+                    else if (tmp2.find("warning") != string::npos)
+                        this->warning("stdout", tmp);
+                    else if (tmp2.find("error") != string::npos)
+                        this->error("stdout", tmp);
+                    else if ((tmp2.find("critical") != string::npos) || (tmp2.find("fatal") != string::npos))
+                        this->critical("stdout", tmp);
+
+                    else
+                        this->info("stdout", tmp);
+                }
+                else
+                    this->info("stdout", tmp);
+
                 coutInterceptor.str("");
                 coutInterceptor.clear();
             }

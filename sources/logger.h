@@ -129,7 +129,7 @@ private:
 		{LOGGER_LOGLEVEL_CRITICAL, "CRITICAL"},
 	};
 
-	void init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog = false);
+	void init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog = false, bool tryToIdentifyLogLevelOfStdoutMessages = false);
 	void flushCaches();
 public:
 
@@ -140,7 +140,7 @@ public:
 	streambuf* clog_originalBuffer;
 	ostringstream clogInterceptor;
 
-	Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog = false);
+	Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog = false, bool tryToIdentifyLogLevelOfStdoutMessages = false);
 	~Logger();
 
 	//a special function used intercept stdout. It's used by driver LoggerConsoleWriter
@@ -188,7 +188,8 @@ public:
 	static string stringReplace(string source, string replace, string by);
 
 	bool isCurrentlyTnterceptingCoutCerrAndCLog = false;
-	bool intercepCoutCerrAndCLog;
+	bool intercepCoutCerrAndCLog = false;
+	bool tryToIdentifyLogLevelOfStdoutMessages = false;
 
 	
 
