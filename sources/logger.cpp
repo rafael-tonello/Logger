@@ -24,8 +24,8 @@ void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, boo
     }
 }
 
-Logger::Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, bool tryToIdentifyLogLevelOfStdoutMessages){
-    this->init(writers, intercepCoutCerrAndCLog);
+Logger::Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, bool ){
+    this->init(writers, intercepCoutCerrAndCLog, tryToIdentifyLogLevelOfStdoutMessages);
 }
 
 Logger::~Logger()
