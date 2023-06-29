@@ -131,6 +131,7 @@ private:
 
 	void init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog = false, bool tryToIdentifyLogLevelOfStdoutMessages = false);
 	void flushCaches();
+	string toLowerCase(string source);
 public:
 
 	streambuf* cout_originalBuffer;

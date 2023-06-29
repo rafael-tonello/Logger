@@ -85,6 +85,8 @@ void Logger::threadReadStdBuffer()
                     else
                         tmp2 = tmp;
 
+                    tmp2 = toLowerCase(tmp2);
+
                     if (tmp2.find("debug") != string::npos)
                         this->debug("stdout", tmp);
                     else if (tmp2.find("debug2") != string::npos)
@@ -129,6 +131,15 @@ void Logger::threadReadStdBuffer()
         }
     });
     th.detach();
+}
+
+string Logger::toLowerCase(string source)
+{
+    std::string result = source;
+    std::transform(result.begin(), result.end(), result.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
+    return result;
 }
 
 void Logger::log(int level, string name, string msg)
