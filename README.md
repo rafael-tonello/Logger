@@ -126,8 +126,8 @@ The critical function has an additional and optional parameter (raiseException) 
 # TODO LISTS
 ## general
 ```
-	[ ] Create a flush function to wait cache clear
-  	[ ] Remove exception from critical function 
+	[x] Create a flush function to wait cache clear
+  	[x] Remove exception from critical function 
 	[ ] Critical function must flush library
 ```
 
