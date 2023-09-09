@@ -87,7 +87,9 @@ void Logger::threadReadStdBuffer()
 
                     tmp2 = toLowerCase(tmp2);
 
-                    if (tmp2.find("debug") != string::npos)
+                    if (tmp2.find("trace") != string::npos)
+                        this->trace("stdout", tmp);
+                    else if (tmp2.find("debug") != string::npos)
                         this->debug("stdout", tmp);
                     else if (tmp2.find("debug2") != string::npos)
                         this->debug2("stdout", tmp);
@@ -148,6 +150,10 @@ void Logger::log(int level, string name, string msg)
         c->write(this, msg, level, name, getRawTime());
 }
 
+void Logger::trace(string name, string msg){
+    log(LOGGER_LOGLEVEL_TRACE, name, msg);
+}
+
 void Logger::debug(string name, string msg){
     log(LOGGER_LOGLEVEL_DEBUG, name, msg);
 }
@@ -180,6 +186,11 @@ void Logger::critical(string name, string msg){
 void Logger::log(int level, string name, vector<DynamicVar> msgs)
 {
     this->log(level, name, fromList(msgs));
+}
+
+void Logger::trace(string name, vector<DynamicVar> msgs)
+{
+    this->trace(name, fromList(msgs));
 }
 
 void Logger::debug(string name, vector<DynamicVar> msgs)
@@ -369,6 +380,11 @@ void Logger::log(int level, string msg)
     this->log(level, DEFAULT_LOG_NAME, msg);
 }
 
+void Logger::trace(string msg)
+{
+    this->trace(DEFAULT_LOG_NAME, msg);
+}
+
 void Logger::debug(string msg)
 {
     this->debug(DEFAULT_LOG_NAME, msg);
@@ -401,6 +417,10 @@ void Logger::critical(string msg)
 void Logger::log(int level, vector<DynamicVar> msgs)
 {
     this->log(level, DEFAULT_LOG_NAME, msgs);
+}
+void Logger::trace(vector<DynamicVar> msgs)
+{
+    this->trace(DEFAULT_LOG_NAME, msgs);
 }
 void Logger::debug(vector<DynamicVar> msgs)
 {
@@ -532,6 +552,10 @@ void NLogger::log(int level, string msg)
     this->mainLogger->log(level, this->name, msg);
 }
 
+void NLogger::trace(string msg)
+{
+    this->mainLogger->trace(this->name, msg);
+}
 void NLogger::debug(string msg)
 {
     this->mainLogger->debug(this->name, msg);
@@ -570,6 +594,10 @@ void NLogger::log(int level, vector<DynamicVar> msgs)
     this->mainLogger->log(level, this->name, msgs);
 }
 
+void NLogger::trace(vector<DynamicVar> msgs)
+{
+    this->mainLogger->trace(this->name, msgs);
+}
 void NLogger::debug(vector<DynamicVar> msgs)
 {
     this->mainLogger->debug(this->name, msgs);
