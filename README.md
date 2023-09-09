@@ -1,4 +1,4 @@
-# Sobre a biblioteca e uso básico
+# About Logger
 
 The Logger library is a lib written in C++ that is very simple to use and very flexible. It allows log messages to be sent to more than one place at the same time. You, for example, send the same message to a file and to stdout. The logging library achieves this through drivers, which are specified in the class instantiation.
 
