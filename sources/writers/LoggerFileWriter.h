@@ -18,10 +18,11 @@ private:
 	string getTime();
 	string generateDateTimeString();
 	int logLevel = LOGGER_LOG_ALL_LEVELS;
+	bool printMilisseconds = true;
 public:
 	/* A driver to write a plain text log file. This driver ignores the 'logLevel' and writers all logs to the file.
      * @param fName is the destination filename */
-	LoggerFileWriter(string fname, int logLevel = LOGGER_LOG_ALL_LEVELS);
+	LoggerFileWriter(string fname, int logLevel = LOGGER_LOG_ALL_LEVELS, bool printMilisseconds = true);
 	~LoggerFileWriter();
 	void write(Logger* sender, string msg, int level, string name, std::time_t dateTime);
 };

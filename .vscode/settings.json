@@ -63,6 +63,7 @@
         "semaphore": "cpp",
         "streambuf": "cpp",
         "ranges": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "cinttypes": "cpp"
     }
 }

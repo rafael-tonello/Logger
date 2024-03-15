@@ -274,16 +274,28 @@ string Logger::getDateString(std::time_t rawTime)
     return string(buffer);
 }
 
-string Logger::getTimeString(std::time_t rawTime)
+string Logger::getTimeString(std::time_t rawTime, bool includeMilisseconds)
 {
     std::tm* timeinfo;
     char buffer [80];
 
     timeinfo = std::localtime(&rawTime);
 
-    std::strftime(buffer,80,"%H:%M:%S%z",timeinfo);
 
-    return string(buffer);
+    std::strftime(buffer,80,"%H:%M:%Sms%z",timeinfo);
+    auto result = string(buffer);
+    if (includeMilisseconds)
+    {
+        auto ms_raw = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() % 1000;
+        auto ms = "." + std::to_string(ms_raw);
+        result = Logger::stringReplace(result, "ms", ms);  
+    }
+    else
+    {
+        result = Logger::stringReplace(result, "ms", "");   
+    }
+
+    return result;
 
 }
 
@@ -297,7 +309,7 @@ string Logger::remoteLastLineBreak(string data)
     return data;
 }
 
-string Logger::generateDateTimeString(time_t dateTime, bool date, bool time)
+string Logger::generateDateTimeString(time_t dateTime, bool date, bool time, bool milisseconds)
 {
 
     string result = "";
@@ -307,7 +319,7 @@ string Logger::generateDateTimeString(time_t dateTime, bool date, bool time)
 
     if (time)
     {
-        string time = getTimeString(dateTime);
+        string time = getTimeString(dateTime, milisseconds);
         if (time != "")
         {
             if (result != "")
@@ -320,7 +332,7 @@ string Logger::generateDateTimeString(time_t dateTime, bool date, bool time)
     return result;
 }
 
-string Logger::generateLineBegining( string level, string name, bool generateDateTime, time_t dateTime)
+string Logger::generateLineBegining( string level, string name, bool generateDateTime, time_t dateTime, bool includeMilisseconds)
 {
     string prefix = "";
     
@@ -328,7 +340,7 @@ string Logger::generateLineBegining( string level, string name, bool generateDat
     {
         if (dateTime == -1)
             dateTime = getRawTime();
-        prefix += "["+Logger::generateDateTimeString(dateTime)+"] ";
+        prefix += "["+Logger::generateDateTimeString(dateTime, includeMilisseconds)+"] ";
     }
 
     prefix += "["+level + "] ";
@@ -340,9 +352,9 @@ string Logger::generateLineBegining( string level, string name, bool generateDat
     return prefix;
 }
 
-string Logger::generateLineBegining(Logger *logger, int level, string name, bool generateDateTime, time_t dateTime)
+string Logger::generateLineBegining(Logger *logger, int level, string name, bool generateDateTime, time_t dateTime, bool includeMilisseconds)
 {
-    return Logger::generateLineBegining(logger->levelToString(level), name, generateDateTime, dateTime);
+    return Logger::generateLineBegining(logger->levelToString(level), name, generateDateTime, dateTime, includeMilisseconds);
 }
 
 NLogger Logger::getNamedLogger(string name)

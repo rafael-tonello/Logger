@@ -1,11 +1,12 @@
 #include  "LoggerConsoleWriter.h" 
  
-LoggerConsoleWriter::LoggerConsoleWriter(int logLevel, bool useColors, bool displayLinePrefix, bool displayDateTime)
+LoggerConsoleWriter::LoggerConsoleWriter(int logLevel, bool useColors, bool displayLinePrefix, bool displayDateTime, bool printMilisseconds)
 {
     this->colors = useColors;
     this->logLevel = logLevel;
     this->displayLinePrefix = displayLinePrefix;
     this->displayDateTime = displayDateTime;
+    this->printMilisseconds = printMilisseconds;
 }
  
 void LoggerConsoleWriter::write(Logger* sender, string msg, int level, string name, std::time_t dateTime){
@@ -14,7 +15,7 @@ void LoggerConsoleWriter::write(Logger* sender, string msg, int level, string na
     {
         if (displayLinePrefix)
         {
-            auto ls = Logger::generateLineBegining(sender, level, name, displayDateTime, dateTime);
+            auto ls = Logger::generateLineBegining(sender, level, name, displayDateTime, dateTime, printMilisseconds);
             auto identPrefix = string(ls.size(), ' ');
             msg = Logger::identLog(msg, identPrefix);
 
