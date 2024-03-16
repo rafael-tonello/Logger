@@ -340,7 +340,7 @@ string Logger::generateLineBegining( string level, string name, bool generateDat
     {
         if (dateTime == -1)
             dateTime = getRawTime();
-        prefix += "["+Logger::generateDateTimeString(dateTime, includeMilisseconds)+"] ";
+        prefix += "["+Logger::generateDateTimeString(dateTime, true, true, includeMilisseconds)+"] ";
     }
 
     prefix += "["+level + "] ";
