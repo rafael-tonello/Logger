@@ -1,6 +1,3 @@
 [submodule "sources/common/libs/DynamicVar"]
 	path = sources/common/libs/DynamicVar
 	url = https://github.com/rafael-tonello/DynamicVar.git
-[submodule "sources/common/libs/libs.json_maker"]
-	path = sources/common/libs/libs.json_maker
-	url = https://github.com/rafael-tonello/libs.json_maker.git
