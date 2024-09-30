@@ -1,0 +1,1 @@
+Make should create .a and .so libraries

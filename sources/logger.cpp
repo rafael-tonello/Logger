@@ -2,7 +2,7 @@
 
 #pragma region Logger class
 
-void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, bool tryToIdentifyLogLevelOfStdoutMessages)
+void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, bool tryToIdentifyLogLevelOfStdoutMessages, bool useCustomTimezone, int customTimeZoneOffsetInSeconds)
 {
     //this->writers = writers;
 
@@ -14,6 +14,8 @@ void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, boo
 
     this->intercepCoutCerrAndCLog = intercepCoutCerrAndCLog;
     this->tryToIdentifyLogLevelOfStdoutMessages = tryToIdentifyLogLevelOfStdoutMessages;
+    this->useCustomTimezone = useCustomTimezone;
+    this->customTimeZoneOffsetInSeconds = customTimeZoneOffsetInSeconds;
 
 
     if (intercepCoutCerrAndCLog)
@@ -24,8 +26,8 @@ void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, boo
     }
 }
 
-Logger::Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, bool tryToIdentifyLogLevelOfStdoutMessages){
-    this->init(writers, intercepCoutCerrAndCLog, tryToIdentifyLogLevelOfStdoutMessages);
+Logger::Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, bool tryToIdentifyLogLevelOfStdoutMessages, bool useCustomTimezone, int customTimeZoneOffsetInSeconds){
+    this->init(writers, intercepCoutCerrAndCLog, tryToIdentifyLogLevelOfStdoutMessages, useCustomTimezone, customTimeZoneOffsetInSeconds);
 }
 
 Logger::~Logger()
@@ -146,8 +148,9 @@ string Logger::toLowerCase(string source)
 
 void Logger::log(int level, string name, string msg)
 {
-    for (auto &c : this->writers)
+    for (auto &c : this->writers) {
         c->write(this, msg, level, name, getRawTime());
+    }
 }
 
 void Logger::trace(string name, string msg){
@@ -247,13 +250,10 @@ void Logger::addLogLevel(int logLevel, string levelDescription)
     logLevels[logLevel] = levelDescription;
 }
 
-
 map<int, string> Logger::getLogLevels()
 {
     return logLevels;
 }
-
-
 
 std::time_t Logger::getRawTime()
 {
@@ -274,12 +274,27 @@ string Logger::getDateString(std::time_t rawTime)
     return string(buffer);
 }
 
-string Logger::getTimeString(std::time_t rawTime, bool includeMilisseconds)
+string Logger::getTimeString(std::time_t rawTime, bool includeMilisseconds, bool useCustomTimezone, int customTimeZoneOffsetInSeconds)
 {
     std::tm* timeinfo;
     char buffer [80];
 
     timeinfo = std::localtime(&rawTime);
+
+    if (useCustomTimezone)
+    {
+        //time in current timezone + (destination timezone - current timezone)
+        auto totalOffset = customTimeZoneOffsetInSeconds - timeinfo->tm_gmtoff;
+
+        timeinfo->tm_sec += totalOffset;
+
+        auto tmp = std::mktime(timeinfo);
+
+        //convert time_t to tm
+        timeinfo = std::localtime(&tmp);
+        timeinfo->tm_gmtoff = customTimeZoneOffsetInSeconds;
+
+    }
 
 
     std::strftime(buffer,80,"%H:%M:%Sms%z",timeinfo);
@@ -309,7 +324,7 @@ string Logger::remoteLastLineBreak(string data)
     return data;
 }
 
-string Logger::generateDateTimeString(time_t dateTime, bool date, bool time, bool milisseconds)
+string Logger::generateDateTimeString(time_t dateTime, bool date, bool time, bool milisseconds, bool useCustomTimezone, int customTimeZoneOffsetInSeconds)
 {
 
     string result = "";
@@ -319,7 +334,7 @@ string Logger::generateDateTimeString(time_t dateTime, bool date, bool time, boo
 
     if (time)
     {
-        string time = getTimeString(dateTime, milisseconds);
+        string time = getTimeString(dateTime, milisseconds, useCustomTimezone, customTimeZoneOffsetInSeconds);
         if (time != "")
         {
             if (result != "")
@@ -340,7 +355,7 @@ string Logger::generateLineBegining( string level, string name, bool generateDat
     {
         if (dateTime == -1)
             dateTime = getRawTime();
-        prefix += "["+Logger::generateDateTimeString(dateTime, true, true, includeMilisseconds)+"] ";
+        prefix += "["+Logger::generateDateTimeString(dateTime, true, true, includeMilisseconds, useCustomTimezone, customTimeZoneOffsetInSeconds)+"] ";
     }
 
     prefix += "["+level + "] ";
@@ -482,6 +497,7 @@ ILogWriterCacher::~ILogWriterCacher()
     waiter.notify_one();
     threadExitMutex.lock();
     threadExitMutex.unlock();
+    delete this->driver;
 }
 
 void ILogWriterCacher::write(Logger* sender, string msg, int level, string name, time_t dateTime)
@@ -513,7 +529,7 @@ void ILogWriterCacher::run()
         cacheTmp.clear();
 
         waitFlushMutex.unlock();
-        if (cache.size() == 0)
+        if (cache.size() == 0 && running)
             waiter.wait(lk);
     }
 

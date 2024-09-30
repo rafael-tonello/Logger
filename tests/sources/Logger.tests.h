@@ -2,6 +2,8 @@
 #define __LOGGERTESTS__H__ 
 
 #include <tester.h>
+#include <logger.h>
+#include <LoggerLambdaWriter.h>
  
 class LoggerTests: public Tester { 
 public: 

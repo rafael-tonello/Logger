@@ -97,7 +97,7 @@ public:
 };
 
 
-class ILogWriterCacher: ILogWriter{
+class ILogWriterCacher: public ILogWriter{
 private:
 	condition_variable waiter;
 	mutex listLocker;
@@ -114,6 +114,7 @@ public:
 	void write(Logger* sender, string msg, int level, string name, time_t dateTime);
 	void run();
 	void flush();
+
 };
 
 class Logger: public ILogger{
@@ -123,6 +124,8 @@ private:
 	bool running = true;
 	
 	void threadReadStdBuffer();
+	int customTimeZoneOffsetInSeconds = -1;
+	bool useCustomTimezone = false;
 
 	map<int, string> logLevels {
 		{LOGGER_LOGLEVEL_TRACE, "TRACE"},
@@ -135,7 +138,14 @@ private:
 		{LOGGER_LOGLEVEL_CRITICAL, "CRITICAL"},
 	};
 
-	void init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog = false, bool tryToIdentifyLogLevelOfStdoutMessages = false);
+	void init(
+		vector<ILogWriter*> writers, 
+		bool intercepCoutCerrAndCLog = false, 
+		bool tryToIdentifyLogLevelOfStdoutMessages = false, 
+		bool useCustomTimezone = false, 
+		int customTimeZoneOffsetInSeconds = 0
+	);
+
 	void flushCaches();
 	string toLowerCase(string source);
 public:
@@ -147,7 +157,13 @@ public:
 	streambuf* clog_originalBuffer;
 	ostringstream clogInterceptor;
 
-	Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog = false, bool tryToIdentifyLogLevelOfStdoutMessages = false);
+	Logger(
+		vector<ILogWriter*> writers, 
+		bool intercepCoutCerrAndCLog = false, 
+		bool tryToIdentifyLogLevelOfStdoutMessages = false,
+		bool useCustomTimezone = false, 
+		int customTimeZoneOffsetInSeconds = 0
+	);
 	~Logger();
 
 	//a special function used intercept stdout. It's used by driver LoggerConsoleWriter
@@ -160,7 +176,7 @@ public:
 	static string getDateString(std::time_t rawTime);
 
 	//an util function to return the current time in a string
-	static string getTimeString(std::time_t rawTime, bool includeMilisseconds = false);
+	static string getTimeString(std::time_t rawTime, bool includeMilisseconds = false, bool useCustomTimezone = false, int customTimeZoneOffsetInSeconds = 0);
 
 	static std::time_t getRawTime();
 
@@ -170,16 +186,16 @@ public:
 	 * @param date indicates if the result should contains the current date
 	 * @param date indicates if the result should contains the current time
 	 * @return return a date and time string*/
-	static string generateDateTimeString(time_t dateTime, bool date = true, bool time = true, bool milisseconds = false);
+	static string generateDateTimeString(time_t dateTime, bool date = true, bool time = true, bool milisseconds = false, bool useCustomTimezone = false, int customTimeZoneOffsetInSeconds = 0);
 
 	/** an utils function that returns a string to be put in the start of log lines
 	 * @param name the name of the log
 	 * @param level the log level of the line
 	 * @param generateDateTime indicates if the date and time should be included in the result
 	 * @return generate a head to log lines or log texts*/
-	static string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false);
+	string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false);
 
-	static string generateLineBegining(Logger *logger, int level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false);
+	string generateLineBegining(Logger *logger, int level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false);
 
 	/** An utils function to ident multi line logs items. Basically, this function put the 'prefix' in the beginning of each line.
 	 * @param log the multi line log text
@@ -197,6 +213,7 @@ public:
 	bool isCurrentlyTnterceptingCoutCerrAndCLog = false;
 	bool intercepCoutCerrAndCLog = false;
 	bool tryToIdentifyLogLevelOfStdoutMessages = false;
+	
 
 	
 

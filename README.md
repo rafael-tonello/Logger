@@ -129,6 +129,8 @@ The critical function has an additional and optional parameter (raiseException) 
 	[x] Create a flush function to wait cache clear
   	[x] Remove exception from critical function 
 	[ ] Critical function must flush library
+	[ ] Use custom timezones
+	[ ] Option to apply offset when using custom timezones
 ```
 
 ## tests

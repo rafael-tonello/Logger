@@ -25,6 +25,13 @@
             "preLaunchTask": "buildTests",
             "miDebuggerPath": "/usr/bin/gdb"
         },
+        {
+            "name": "Logger/Exchange/go",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/projects/exchange/go/main.go"
+        }
 
 
     ]

@@ -5,6 +5,7 @@
 #include <functional>
 
 #include "tester.h"
+#include <Logger.tests.h>
 
 using namespace std;
 int main(int argc, char* argv[])
@@ -16,6 +17,7 @@ int main(int argc, char* argv[])
 
     //***** testers instances
     //***** make your changes only here
+        testers.push_back(new LoggerTests());
         // testers.push_back(new SocketInfoTester());
         // testers.push_back(new PhomauTester());
         // testers.push_back(new DependencyInjectionManagerTester());
@@ -27,5 +29,7 @@ int main(int argc, char* argv[])
 
     //*****
 
-    return Tester::runTests(testers, argc, argv);
+    auto ret = Tester::runTests(testers, argc, argv);
+    cout << flush;
+    return ret;
 }
