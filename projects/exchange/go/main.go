@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"rafaeltonello/logger/logger"
 )
 
@@ -18,7 +19,16 @@ func main() {
 	log.Info2("Hello world")
 	log.Warning("Debug2 message")
 	log.Error("Hello world")
-	log.Critical("Hello world")
+	log.Critical("Hello world", "with", "some", "arguments", "and the number", 42, "ant the logger itself", log)
+
+	tmp := struct {
+		Name  string
+		Email string
+	}{"Rafael", "rafaeltonello55@gmail.com"}
+
+	log.Info("struct:", tmp)
 
 	logger.Finalize()
+
+	fmt.Print()
 }

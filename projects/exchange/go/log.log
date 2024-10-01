@@ -33,3 +33,176 @@
 [2024-09-29T12:36:59.544-0300] [WARNING] [main] Debug2 message
 [2024-09-29T12:36:59.545-0300] [ERROR] [main] Hello world
 [2024-09-29T12:36:59.545-0300] [CRITICAL] [main] Hello world
+[2024-09-30T14:19:03.490-0300] [TRACE] [main] [[Hello world]]
+[2024-09-30T14:19:03.491-0300] [DEBUG] [main] [[Debug message]]
+[2024-09-30T14:19:03.491-0300] [DEBUG2] [main] [[Debug2 message]]
+[2024-09-30T14:19:03.492-0300] [INFO] [main] [[Hello world]]
+[2024-09-30T14:19:03.492-0300] [INFO2] [main] [[Hello world]]
+[2024-09-30T14:19:03.493-0300] [WARNING] [main] [[Debug2 message]]
+[2024-09-30T14:19:03.494-0300] [ERROR] [main] [[Hello world]]
+[2024-09-30T14:19:03.494-0300] [CRITICAL] [main] [[Hello world]]
+[2024-09-30T14:25:24.911-0300] [TRACE] [main] Hello world
+[2024-09-30T14:25:27.498-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:25:27.499-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:25:27.499-0300] [INFO] [main] Hello world
+[2024-09-30T14:25:27.501-0300] [INFO2] [main] Hello world
+[2024-09-30T14:25:27.502-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:25:27.503-0300] [ERROR] [main] Hello world
+[2024-09-30T14:25:27.503-0300] [CRITICAL] [main] Hello world
+[2024-09-30T14:25:54.987-0300] [TRACE] [main] Hello world
+[2024-09-30T14:25:54.988-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:25:54.988-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:25:54.988-0300] [INFO] [main] Hello world
+[2024-09-30T14:25:54.989-0300] [INFO2] [main] Hello world
+[2024-09-30T14:25:54.990-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:25:54.991-0300] [ERROR] [main] Hello world
+[2024-09-30T14:25:54.991-0300] [CRITICAL] [main] Hello world with some arguments and the number 42
+[2024-09-30T14:26:25.91-0300] [TRACE] [main] Hello world
+[2024-09-30T14:27:53.91-0300] [TRACE] [main] Hello world
+[2024-09-30T14:28:45.590-0300] [TRACE] [main] Hello world
+[2024-09-30T14:28:45.592-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:28:45.594-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:28:45.594-0300] [INFO] [main] Hello world
+[2024-09-30T14:28:45.596-0300] [INFO2] [main] Hello world
+[2024-09-30T14:28:45.597-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:28:45.597-0300] [ERROR] [main] Hello world
+[2024-09-30T14:28:53.123-0300] [TRACE] [main] Hello world
+[2024-09-30T14:28:53.124-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:28:53.124-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:28:53.125-0300] [INFO] [main] Hello world
+[2024-09-30T14:28:53.126-0300] [INFO2] [main] Hello world
+[2024-09-30T14:28:53.126-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:28:53.127-0300] [ERROR] [main] Hello world
+[2024-09-30T14:29:11.947-0300] [TRACE] [main] Hello world
+[2024-09-30T14:29:23.708-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:29:23.708-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:29:23.708-0300] [INFO] [main] Hello world
+[2024-09-30T14:29:23.495-0300] [INFO2] [main] Hello world
+[2024-09-30T14:29:23.496-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:29:23.497-0300] [ERROR] [main] Hello world
+[2024-09-30T14:30:33.288-0300] [TRACE] [main] Hello world
+[2024-09-30T14:30:33.557-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:30:33.557-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:30:33.558-0300] [INFO] [main] Hello world
+[2024-09-30T14:30:33.559-0300] [INFO2] [main] Hello world
+[2024-09-30T14:30:33.559-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:30:33.560-0300] [ERROR] [main] Hello world
+[2024-09-30T14:30:40.560-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {main 0xc0001b6020}
+[2024-09-30T14:30:48.12-0300] [TRACE] [main] Hello world
+[2024-09-30T14:33:39.447-0300] [TRACE] [main] Hello world
+[2024-09-30T14:33:39.262-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:33:39.263-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:33:39.263-0300] [INFO] [main] Hello world
+[2024-09-30T14:33:39.265-0300] [INFO2] [main] Hello world
+[2024-09-30T14:33:39.265-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:33:39.266-0300] [ERROR] [main] Hello world
+[2024-09-30T14:34:23.267-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {main 0xc000136020}
+[2024-09-30T14:34:47.489-0300] [TRACE] [main] [Hello world]
+[2024-09-30T14:34:47.998-0300] [DEBUG] [main] [Debug message]
+[2024-09-30T14:34:47.455-0300] [DEBUG2] [main] [Debug2 message]
+[2024-09-30T14:34:47.455-0300] [INFO] [main] [Hello world]
+[2024-09-30T14:34:47.456-0300] [INFO2] [main] [Hello world]
+[2024-09-30T14:34:47.456-0300] [WARNING] [main] [Debug2 message]
+[2024-09-30T14:34:47.457-0300] [ERROR] [main] [Hello world]
+[2024-09-30T14:34:53.457-0300] [CRITICAL] [main] [Hello world with some arguments and the number 42 ant the logger itself {main 0xc000130020}]
+[2024-09-30T14:35:30.335-0300] [TRACE] [main] Hello world
+[2024-09-30T14:35:30.336-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:35:30.690-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:35:30.690-0300] [INFO] [main] Hello world
+[2024-09-30T14:35:30.691-0300] [INFO2] [main] Hello world
+[2024-09-30T14:35:30.502-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:35:30.502-0300] [ERROR] [main] Hello world
+[2024-09-30T14:36:10.188-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {main 0xc000020078}
+[2024-09-30T14:36:53.369-0300] [TRACE] [main] Hello world
+[2024-09-30T14:36:53.369-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:36:53.737-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:36:53.766-0300] [INFO] [main] Hello world
+[2024-09-30T14:36:53.220-0300] [INFO2] [main] Hello world
+[2024-09-30T14:36:53.817-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:36:53.817-0300] [ERROR] [main] Hello world
+[2024-09-30T14:37:13.818-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {main 0xc000020078}
+[2024-09-30T14:37:24.486-0300] [TRACE] [main] Hello world
+[2024-09-30T14:37:24.589-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:37:24.590-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:37:24.590-0300] [INFO] [main] Hello world
+[2024-09-30T14:37:24.533-0300] [INFO2] [main] Hello world
+[2024-09-30T14:37:24.534-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:37:24.910-0300] [ERROR] [main] Hello world
+[2024-09-30T14:37:45.923-0300] [TRACE] [main] Hello world
+[2024-09-30T14:37:45.475-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:37:45.504-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:37:45.598-0300] [INFO] [main] Hello world
+[2024-09-30T14:37:45.598-0300] [INFO2] [main] Hello world
+[2024-09-30T14:37:45.598-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:37:45.599-0300] [ERROR] [main] Hello world
+[2024-09-30T14:37:50.599-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {main 0xc000020078}
+[2024-09-30T14:37:53.182-0300] [TRACE] [main] Hello world
+[2024-09-30T14:37:53.487-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:37:53.420-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:37:53.420-0300] [INFO] [main] Hello world
+[2024-09-30T14:37:53.247-0300] [INFO2] [main] Hello world
+[2024-09-30T14:37:53.95-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:37:53.95-0300] [ERROR] [main] Hello world
+[2024-09-30T14:39:14.56-0300] [TRACE] [main] Hello world
+[2024-09-30T14:39:14.56-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:39:14.57-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:39:14.238-0300] [INFO] [main] Hello world
+[2024-09-30T14:39:14.239-0300] [INFO2] [main] Hello world
+[2024-09-30T14:39:14.239-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:39:14.253-0300] [ERROR] [main] Hello world
+[2024-09-30T14:39:27.62-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {}
+[2024-09-30T14:44:56.622-0300] [TRACE] [main] Hello world
+[2024-09-30T14:44:56.623-0300] [DEBUG] [main] Debug message
+[2024-09-30T14:44:56.623-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T14:44:56.624-0300] [INFO] [main] Hello world
+[2024-09-30T14:44:56.624-0300] [INFO2] [main] Hello world
+[2024-09-30T14:44:56.625-0300] [WARNING] [main] Debug2 message
+[2024-09-30T14:44:56.625-0300] [ERROR] [main] Hello world
+[2024-09-30T14:44:56.626-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {}
+[2024-09-30T21:22:35.102-0300] [TRACE] [main] Hello world
+[2024-09-30T21:22:35.103-0300] [DEBUG] [main] Debug message
+[2024-09-30T21:22:35.103-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T21:22:35.105-0300] [INFO] [main] Hello world
+[2024-09-30T21:22:35.106-0300] [INFO2] [main] Hello world
+[2024-09-30T21:22:35.106-0300] [WARNING] [main] Debug2 message
+[2024-09-30T21:22:35.107-0300] [ERROR] [main] Hello world
+[2024-09-30T21:22:35.107-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {}
+[2024-09-30T21:28:27.738-0300] [TRACE] [main] Hello world
+[2024-09-30T21:28:27.739-0300] [DEBUG] [main] Debug message
+[2024-09-30T21:28:27.740-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T21:28:27.740-0300] [INFO] [main] Hello world
+[2024-09-30T21:28:27.740-0300] [INFO2] [main] Hello world
+[2024-09-30T21:28:27.741-0300] [WARNING] [main] Debug2 message
+[2024-09-30T21:28:27.741-0300] [ERROR] [main] Hello world
+[2024-09-30T21:28:27.742-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {}
+[2024-09-30T21:29:39.764-0300] [TRACE] [main] Hello world
+[2024-09-30T21:29:39.765-0300] [DEBUG] [main] Debug message
+[2024-09-30T21:29:39.766-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T21:29:39.768-0300] [INFO] [main] Hello world
+[2024-09-30T21:29:39.768-0300] [INFO2] [main] Hello world
+[2024-09-30T21:29:39.768-0300] [WARNING] [main] Debug2 message
+[2024-09-30T21:29:39.769-0300] [ERROR] [main] Hello world
+[2024-09-30T21:29:39.769-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {}
+[2024-09-30T21:29:47.976-0300] [TRACE] [main] Hello world
+[2024-09-30T21:29:47.977-0300] [DEBUG] [main] Debug message
+[2024-09-30T21:29:47.977-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T21:29:57.640-0300] [TRACE] [main] Hello world
+[2024-09-30T21:29:57.640-0300] [DEBUG] [main] Debug message
+[2024-09-30T21:29:57.641-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T21:29:57.641-0300] [INFO] [main] Hello world
+[2024-09-30T21:29:57.642-0300] [INFO2] [main] Hello world
+[2024-09-30T21:29:57.642-0300] [WARNING] [main] Debug2 message
+[2024-09-30T21:29:57.643-0300] [ERROR] [main] Hello world
+[2024-09-30T21:29:57.643-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {}
+[2024-09-30T21:30:05.392-0300] [TRACE] [main] Hello world
+[2024-09-30T21:30:05.392-0300] [DEBUG] [main] Debug message
+[2024-09-30T21:30:05.393-0300] [DEBUG2] [main] Debug2 message
+[2024-09-30T21:30:05.393-0300] [INFO] [main] Hello world
+[2024-09-30T21:30:05.394-0300] [INFO2] [main] Hello world
+[2024-09-30T21:30:05.394-0300] [WARNING] [main] Debug2 message
+[2024-09-30T21:30:05.390-0300] [ERROR] [main] Hello world
+[2024-09-30T21:30:05.391-0300] [CRITICAL] [main] Hello world with some arguments and the number 42 ant the logger itself {}
+[2024-09-30T21:30:46.748-0300] [INFO] [main] struct: {
+                                               "Name": "Rafael",
+                                               "Email": "rafaeltonello55@gmail.com"
+                                             }
