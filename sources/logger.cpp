@@ -151,6 +151,9 @@ void Logger::log(int level, string name, string msg)
     for (auto &c : this->writers) {
         c->write(this, msg, level, name, getRawTime());
     }
+
+    if (level == LOGGER_LOGLEVEL_CRITICAL)
+        this->flushCaches();
 }
 
 void Logger::trace(string name, string msg){
@@ -183,7 +186,6 @@ void Logger::error(string name, string msg){
 
 void Logger::critical(string name, string msg){
     log(LOGGER_LOGLEVEL_CRITICAL, name, msg);
-    this->flushCaches();
 }
 
 void Logger::log(int level, string name, vector<DynamicVar> msgs)
