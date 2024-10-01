@@ -61,9 +61,9 @@ logger.warning("a log with default log name");
 ```
 	[x] Create a flush function to wait cache clear
   	[x] Remove exception from critical function 
-	[ ] Critical function must flush library
-	[ ] Use custom timezones
-	[ ] Option to apply offset when using custom timezones
+	[x] Critical function must flush library
+	[x] Use custom timezones
+	[x] Option to apply offset when using custom timezones
 ```
 
 ## tests
@@ -72,4 +72,5 @@ logger.warning("a log with default log name");
     [ ] logger->LoggerConsoleWriter
     [ ] logger->LoggerFileWriter
     [ ] logger->LoggerLambdaWriter
+	[x] timezones
 ```
