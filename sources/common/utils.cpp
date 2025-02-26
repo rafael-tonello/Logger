@@ -557,7 +557,7 @@ bool Utils::isNumber(string source)
 map<void*, string> Utils::getANameDB;
 //https://dzone.com/articles/name-lists-generating-test
 string Utils::getAName(int number, NameType typeOfName, int AlgoGenMaxSyllables){
-    return getAName((void*)int64_t(number), typeOfName, AlgoGenMaxSyllables);
+    return getAName((void*)number, typeOfName, AlgoGenMaxSyllables);
 }
 
 string Utils::getAName(void* p, NameType typeOfName, int AlgoGenMaxSyllables){

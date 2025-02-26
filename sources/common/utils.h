@@ -7,12 +7,14 @@
 #include <map>
 #include <unistd.h>
 #include <exception>
+#ifdef THREAD_POOL_H
+    #include <ThreadPool.h>
+#endif
 #include <sys/wait.h>
 #include <sstream>
 #include <algorithm>
 #include <iostream>
 #include <cctype>
-#include <vector>
 
 using namespace std;
     /**
@@ -160,6 +162,48 @@ using namespace std;
             std::copy_if(source.begin(), source.end(), std::back_inserter(result), f);
             return result;
         }
+
+        #ifdef THREAD_POOL_H
+            template<typename T>
+            static future<void> parallel_foreach(vector<T> items, function<void(T, void* additionalArgs)> f, ThreadPool *tasker, void* additionalArgs = NULL)
+            {
+                vector<future<void>> pendingTasks = {};
+                for (auto &c: items)
+                {
+                    pendingTasks.push_back(tasker->enqueue([&](T &item, void* argsp){
+                        f(item, argsp);
+                    }, c, additionalArgs));
+                };
+
+                /*return tasker->enqueue([&](auto pendingTasks2){
+                    for (auto &c: pendingTasks2)
+                        c.wait();
+                }, pendingTasks);*/
+
+                return tasker->enqueue([&](){
+                    for (auto &c: pendingTasks)
+                        c.wait();
+                });
+            }
+
+            static future<void> parallel_for(int from, int to, function<void(int)> f, ThreadPool * tasker)
+            {
+                vector<future<void>> pendingTasks;
+                for (int c = from; c != to; from > to ? c-- : c++)
+                {
+                    if (c != to)
+                        pendingTasks.push_back(tasker->enqueue([&](int index){
+                            f(index);
+                        }, c));
+                }
+
+                return tasker->enqueue([&](){
+                    for (auto &c: pendingTasks)
+                        c.wait();
+                });
+            }
+        #endif
+
 
     };
 
