@@ -75,9 +75,9 @@ void LoggerCommandCallWriter::write(ILogger* sender, string msg, int level, stri
     string lineHeader = sender->generateLineBegining(sender, level, name, true, dateTime, true);
 
     string cacheFileLine = 
-        "\""+Utils::escapeString(lineHeader)+ "\","+
-        "\""+Utils::escapeString(msg)+ "\","+
-        "\""+Utils::escapeString(name)+ "\","+
+        "\""+LoggerUtils::escapeString(lineHeader)+ "\","+
+        "\""+LoggerUtils::escapeString(msg)+ "\","+
+        "\""+LoggerUtils::escapeString(name)+ "\","+
         to_string(level)+ ",";
         
     
@@ -88,8 +88,8 @@ void LoggerCommandCallWriter::write(ILogger* sender, string msg, int level, stri
 
 void LoggerCommandCallWriter::flushCacheFile(string cacheFile, string command)
 {
-    Utils::ssystem(command + " \"" + cacheFile + "\"");
-    Utils::ssystem("rm -f \"" + cacheFile + "\"");
+    LoggerUtils::ssystem(command + " \"" + cacheFile + "\"");
+    LoggerUtils::ssystem("rm -f \"" + cacheFile + "\"");
 }
 
 string LoggerCommandCallWriter::createNewCacheFileName()
@@ -99,12 +99,12 @@ string LoggerCommandCallWriter::createNewCacheFileName()
     
     string ret = "/dev/shm/logger_commandwriter_cache_"+currMicrosseconds+"_"+random+"_"+".cache";
 
-    Utils::writeTextFileContent(ret, getCsvFileHeader() + "\n");
+    LoggerUtils::writeTextFileContent(ret, getCsvFileHeader() + "\n");
 
     return ret;
 }
 
 string LoggerCommandCallWriter::getCsvFileHeader()
 {
-    return "\"completeLineHeader\",\"Text\",\"name\",\"lovLevelNumber\",\"logLevelStr\"";
+    return "\"completeLineHeader\",\"text\",\"name\",\"lovLevelNumber\",\"logLevelStr\"";
 }   

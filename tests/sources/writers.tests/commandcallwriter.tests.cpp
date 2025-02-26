@@ -29,8 +29,8 @@ void CommandCallWriterTests::run(string context)
 
             string("mv \"$fname\" \""+workingFile+"\"\n");
         
-        Utils::writeTextFileContent("/tmp/logger_test.sh", shFile);
-        Utils::ssystem("chmod +x /tmp/logger_test.sh");
+        LoggerUtils::writeTextFileContent("/tmp/logger_test.sh", shFile);
+        LoggerUtils::ssystem("chmod +x /tmp/logger_test.sh");
         auto writer = new LoggerCommandCallWriter("/tmp/logger_test.sh");
         auto logger = Logger({writer});
 

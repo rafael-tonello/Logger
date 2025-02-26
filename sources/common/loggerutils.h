@@ -1,5 +1,5 @@
-#ifndef __UTILS__H__
-#define __UTILS__H__
+#ifndef __LOGGERUTILS__H__
+#define __LOGGERUTILS__H__
 
 #include <string>
 #include <fstream>
@@ -52,7 +52,7 @@ using namespace std;
     
     using named_lock_f = function<void()>;
     
-    class Utils{
+    class LoggerUtils{
     private:
     #ifdef D__TESTING__
     private: 
