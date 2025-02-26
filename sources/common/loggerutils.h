@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <iostream>
 #include <cctype>
+#include <vector>
 
 using namespace std;
     /**
