@@ -75,18 +75,13 @@ void LoggerFileWriter::checkFileSize()
                         pos = fileNameWithNoExtension.find_last_of("/");
                         if (pos != string::npos)
                             fileNameWithoutExtensionAndWithoutPath = fileNameWithNoExtension.substr(pos + 1);
-
-                        cout << "extension: " << extension << endl;
-                        cout << "fileNameWithNoExtension: " << fileNameWithNoExtension << endl;
                         
                         //move the file to a temporary file and create a new one for the logs
                         string newFname = fileNameWithNoExtension + "-" + dateTimeString + extension;
-                        cout << "newFname: " << newFname << endl;
                         fileLock.lock();
                         if (file.is_open())
                             file.close();
 
-                        cout << "rename: " << fileName << " to " << newFname << endl;
                         rename(fileName.c_str(), newFname.c_str());
                         //create new file
                         file = ofstream(fileName, ios::app);
@@ -98,8 +93,7 @@ void LoggerFileWriter::checkFileSize()
 
                         //compact the file
                         string tarXzFile = fileName + ".history/" +fileNameWithoutExtensionAndWithoutPath + "-" + dateTimeString + ".tar.xz";
-                        command = "tar -cJf \"" + tarXzFile + "\" \"" + newFname + "\"";
-                        cout << "command: " << command << endl;
+                        command = "nice -n 19 tar -cJf \"" + tarXzFile + "\" \"" + newFname + "\"";
                         system(command.c_str());
 
                         //remove the temporary file
