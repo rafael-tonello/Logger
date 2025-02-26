@@ -23,7 +23,7 @@ void LoggerTests::run(string context)
 
     this->test("Should create a log line with curent timezone", [](){
         std::time_t outputDate;
-        Logger *logger = new Logger({new LoggerLambdaWriter([&](Logger* sender, string msg, int level, string name, std::time_t dateTime){
+        Logger *logger = new Logger({new LoggerLambdaWriter([&](ILogger* sender, string msg, int level, string name, std::time_t dateTime){
             outputDate = dateTime;
         })}, false, false, false, 0);
 

@@ -43,7 +43,7 @@ CC_FLAGS=-D__TESTING__\
         -ansi      \
 		-c			\
 		-pthread   \
-		-std=c++20 \
+		-std=c++17 \
 		$(CUSTOM_INCLUDE_PATH)
 
 
@@ -52,7 +52,7 @@ CC_FLAGS=-D__TESTING__\
 LK_FLAGS=-D__TESTING__\
         -ansi      \
 		-pthread   \
-		-std=c++20 \
+		-std=c++17 \
 		$(CUSTOM_INCLUDE_PATH)
 #
 # Compilation and linking

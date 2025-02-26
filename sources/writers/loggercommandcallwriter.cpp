@@ -70,22 +70,16 @@ void LoggerCommandCallWriter::flushCurrentCacheFile(bool createNew)
         
 }
 
-void LoggerCommandCallWriter::write(Logger* sender, string msg, int level, string name, std::time_t dateTime){
-    // Do something
-    //"<completeLineHeader>","<Text>","<name>",<lovLevelNumber>,"<logLevelStr>",<timeStrWithTz>,<isLoggerUsinCustomTzOffset>,<loggerCustomTzOffsetInSeconds>
+void LoggerCommandCallWriter::write(ILogger* sender, string msg, int level, string name, std::time_t dateTime){
+    //"<completeLineHeader>","<Text>","<name>",<lovLevelNumber>,"<logLevelStr>"
     string lineHeader = sender->generateLineBegining(sender, level, name, true, dateTime, true);
-
-    auto tzInfo=sender->getTzLoggerInfo();
 
     string cacheFileLine = 
         "\""+Utils::escapeString(lineHeader)+ "\","+
         "\""+Utils::escapeString(msg)+ "\","+
         "\""+Utils::escapeString(name)+ "\","+
-        to_string(level)+ ","+
-        "\""+Utils::escapeString(sender->levelToString(level))+ "\","+
-        "\""+Logger::generateDateTimeString(dateTime, true, true, true, tzInfo.useCustomTimezone, tzInfo.customTimeZoneOffsetInSeconds)+ "\","+
-        to_string(tzInfo.useCustomTimezone)+ ","+
-        to_string(tzInfo.customTimeZoneOffsetInSeconds);
+        to_string(level)+ ",";
+        
     
     currentCacheFile << cacheFileLine << "\n";
 
@@ -112,5 +106,5 @@ string LoggerCommandCallWriter::createNewCacheFileName()
 
 string LoggerCommandCallWriter::getCsvFileHeader()
 {
-    return "\"completeLineHeader\",\"Text\",\"name\",\"lovLevelNumber\",\"logLevelStr\",\"timeStrWithTz\",\"isLoggerUsinCustomTzOffset\",\"loggerCustomTzOffsetInSeconds\"";
+    return "\"completeLineHeader\",\"Text\",\"name\",\"lovLevelNumber\",\"logLevelStr\"";
 }   

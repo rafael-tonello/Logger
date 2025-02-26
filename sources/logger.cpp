@@ -8,11 +8,11 @@ void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, boo
 
     for (auto &c: writers)
     {
-        ILogWriterCacher *tmp = new ILogWriterCacher(c);
+        ILogWriterCacher *tmp = new ILogWriterCacher(this, c);
         this->writers.push_back(tmp);
     }
 
-    this->intercepCoutCerrAndCLog = intercepCoutCerrAndCLog;
+    this->_intercepCoutCerrAndCLog = intercepCoutCerrAndCLog;
     this->tryToIdentifyLogLevelOfStdoutMessages = tryToIdentifyLogLevelOfStdoutMessages;
     this->useCustomTimezone = useCustomTimezone;
     this->customTimeZoneOffsetInSeconds = customTimeZoneOffsetInSeconds;
@@ -20,7 +20,7 @@ void Logger::init(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, boo
 
     if (intercepCoutCerrAndCLog)
     {
-        interceptStdout();
+        _interceptStdout();
 
         threadReadStdBuffer();
     }
@@ -41,7 +41,7 @@ Logger::~Logger()
     running = false;
 }
 
-void Logger::interceptStdout()
+void Logger::_interceptStdout()
 {
     if (isCurrentlyTnterceptingCoutCerrAndCLog)
         return;
@@ -58,7 +58,7 @@ void Logger::interceptStdout()
 
 }
 
-void Logger::restoreStdout()
+void Logger::_restoreStdout()
 {
     if (!isCurrentlyTnterceptingCoutCerrAndCLog)
         return;
@@ -236,7 +236,9 @@ void Logger::critical(string name, vector<DynamicVar> msgs)
 void Logger::flushCaches()
 {
     for (auto &c: writers)
+    {
         c->flush();
+    }
 }
 
 string Logger::levelToString(int level, string defaultName)
@@ -349,7 +351,7 @@ string Logger::generateDateTimeString(time_t dateTime, bool date, bool time, boo
     return result;
 }
 
-string Logger::generateLineBegining( string level, string name, bool generateDateTime, time_t dateTime, bool includeMilisseconds)
+string Logger::generateLineBegining(string level, string name, bool generateDateTime, time_t dateTime, bool includeMilisseconds)
 {
     string prefix = "";
     
@@ -367,11 +369,6 @@ string Logger::generateLineBegining( string level, string name, bool generateDat
 
 
     return prefix;
-}
-
-string Logger::generateLineBegining(Logger *logger, int level, string name, bool generateDateTime, time_t dateTime, bool includeMilisseconds)
-{
-    return Logger::generateLineBegining(logger->levelToString(level), name, generateDateTime, dateTime, includeMilisseconds);
 }
 
 NLogger Logger::getNamedLogger(string name)
@@ -396,12 +393,6 @@ string Logger::stringReplace(string source, string replace, string by)
     }
     else
         return source;
-}
-
-string Logger::identLog(string log, string prefix)
-{
-    auto temp = stringReplace(log, "\n", "\r\t"+prefix);
-    return stringReplace(temp, "\r\t", "\n");
 }
 
 void Logger::log(int level, string msg)
@@ -492,9 +483,10 @@ Logger::GetTzLoggerInfo Logger::getTzLoggerInfo()
 
 #pragma region ILogWriterCacher class
 
-ILogWriterCacher::ILogWriterCacher(ILogWriter *driver)
+ILogWriterCacher::ILogWriterCacher(Logger *ctrl, ILogWriter *driver)
 {
     this->driver = driver;
+    this->ctrl = ctrl;
     thread th([&](){this->run(); });
 
     th.detach();
@@ -510,7 +502,7 @@ ILogWriterCacher::~ILogWriterCacher()
     delete this->driver;
 }
 
-void ILogWriterCacher::write(Logger* sender, string msg, int level, string name, time_t dateTime)
+void ILogWriterCacher::write(ILogger* sender, string msg, int level, string name, time_t dateTime)
 {
     listLocker.lock();
     cache.push_back(make_tuple(sender, msg, level, name, dateTime));
@@ -524,17 +516,26 @@ void ILogWriterCacher::run()
     mutex mtx;
     unique_lock<std::mutex> lk(mtx);
     while (running)
-    {
-        
-        //if (cache.size() == 0)
-        
+    {   
         listLocker.lock();
-        vector<tuple<Logger*, string, int, string, time_t>> cacheTmp = cache;
+        vector<tuple<ILogger*, string, int, string, time_t>> cacheTmp = cache;
         cache.clear();
         listLocker.unlock();
 
         for (auto &c: cacheTmp)
+        {
+            if (dynamic_cast<LoggerConsoleWriter*>(driver) && ctrl->_intercepCoutCerrAndCLog)
+            {
+                ctrl->_restoreStdout();
+            }
+
             driver->write(std::get<0>(c), std::get<1>(c), std::get<2>(c), std::get<3>(c), std::get<4>(c));
+
+            if (dynamic_cast<LoggerConsoleWriter*>(driver) && ctrl->_intercepCoutCerrAndCLog)
+            {
+                ctrl->_restoreStdout();
+            }
+        }
         
         cacheTmp.clear();
 

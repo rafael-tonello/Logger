@@ -13,90 +13,10 @@
 #include <sstream>
 #include <mutex>
 #include <condition_variable>
-
-using namespace std;
-
-
-
-
-#define LOGGER_LOGLEVEL_TRACE 9
-#define LOGGER_LOGLEVEL_DEBUG2 10
-#define LOGGER_LOGLEVEL_DEBUG 20
-#define LOGGER_LOGLEVEL_INFO2 30
-#define LOGGER_LOGLEVEL_INFO 40
-#define LOGGER_LOGLEVEL_WARNING 50
-#define LOGGER_LOGLEVEL_ERROR 60
-#define LOGGER_LOGLEVEL_CRITICAL 70
-
-//A helper do diferenciate calls between (string arg) functions and (vector<DynamicVar> args) functions
-
-#define DVV vector<DynamicVar>
-
-class NLogger;
-
-
-class ILogger{
-public:
-	virtual void log(int level, string name, string msg) = 0;
-	virtual void trace(string name, string msg) = 0;
-	virtual void debug2(string name, string msg) = 0;
-	virtual void debug(string name, string msg) = 0;
-	virtual void info2(string name, string msg) = 0;
-	virtual void info(string name, string msg) = 0;
-	virtual void warning(string name, string msg) = 0;
-	virtual void error(string name, string msg) = 0;
-	virtual void critical(string name, string msg) = 0;
-
-	virtual void log(int level, string name, vector<DynamicVar> msgs) = 0;
-	virtual void trace(string name, vector<DynamicVar> msgs) = 0;
-	virtual void debug2(string name, vector<DynamicVar> msgs) = 0;
-	virtual void debug(string name, vector<DynamicVar> msgs) = 0;
-	virtual void info2(string name, vector<DynamicVar> msgs) = 0;
-	virtual void info(string name, vector<DynamicVar> msgs) = 0;
-	virtual void warning(string name, vector<DynamicVar> msgs) = 0;
-	virtual void error(string name, vector<DynamicVar> msgs) = 0;
-	virtual void critical(string name, vector<DynamicVar> msgs) = 0;
-
-	static string fromList(vector<DynamicVar> items){
-		string out;
-		for (size_t i = 0; i < items.size(); i++)
-			out += items[i].getString() + (i <items.size()-1? " ": "");
-
-		return out;
-	}
-
-	virtual void log(int level, string msg) = 0;
-	virtual void trace(string msg) = 0;
-	virtual void debug(string msg) = 0;
-	virtual void debug2(string msg) = 0;
-	virtual void info(string msg) = 0;
-	virtual void info2(string msg) = 0;
-	virtual void warning(string msg) = 0;
-	virtual void error(string msg) = 0;
-	virtual void critical(string msg) = 0;
-
-	virtual void log(int level, vector<DynamicVar> msgs) = 0;
-	virtual void trace(vector<DynamicVar> msgs) = 0;
-	virtual void debug(vector<DynamicVar> msgs) = 0;
-	virtual void debug2(vector<DynamicVar> msgs) = 0;
-	virtual void info(vector<DynamicVar> msgs) = 0;
-	virtual void info2(vector<DynamicVar> msgs) = 0;
-	virtual void warning(vector<DynamicVar> msgs) = 0;
-	virtual void error(vector<DynamicVar> msgs) = 0;
-	virtual void critical(vector<DynamicVar> msgs) = 0;
-
-	virtual NLogger getNamedLogger(string name) = 0;
-	virtual NLogger* getNamedLoggerP(string name) = 0;
-};
+#include "writers/LoggerConsoleWriter.h"
+#include "ilogger.h"
 
 class Logger;
-
-class ILogWriter{
-public:
-	virtual void write(Logger* sender, string msg, int level, string name, std::time_t dateTime) = 0;
-	virtual ~ILogWriter(){};
-};
-
 
 class ILogWriterCacher: public ILogWriter{
 private:
@@ -107,15 +27,16 @@ private:
 	mutex waitFlushMutex;
 
 	bool running = true;
-	ILogWriter *driver;
-	vector<tuple<Logger*, string, int, string, time_t>> cache;
+	Logger* ctrl;
+	vector<tuple<ILogger*, string, int, string, time_t>> cache;
 public:
-	ILogWriterCacher(ILogWriter *driver);
+	ILogWriterCacher(Logger *ctrl, ILogWriter *driver);
 	~ILogWriterCacher();
-	void write(Logger* sender, string msg, int level, string name, time_t dateTime);
+	void write(ILogger* sender, string msg, int level, string name, time_t dateTime) override;
 	void run();
 	void flush();
 
+	ILogWriter *driver;
 };
 
 class Logger: public ILogger{
@@ -168,10 +89,10 @@ public:
 	~Logger();
 
 	//a special function used intercept stdout. It's used by driver LoggerConsoleWriter
-	void interceptStdout();
+	void _interceptStdout();
 
 	//a special function used restore stdout. It's used by driver LoggerConsoleWriter
-	void restoreStdout();
+	void _restoreStdout();
 
 	//an util function to return current date in a string
 	static string getDateString(std::time_t rawTime);
@@ -199,9 +120,7 @@ public:
 	 * @param level the log level of the line
 	 * @param generateDateTime indicates if the date and time should be included in the result
 	 * @return generate a head to log lines or log texts*/
-	string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false);
-
-	string generateLineBegining(Logger *logger, int level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false);
+	string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false) override;
 
 	/** An utils function to ident multi line logs items. Basically, this function put the 'prefix' in the beginning of each line.
 	 * @param log the multi line log text
@@ -217,7 +136,7 @@ public:
 	static string stringReplace(string source, string replace, string by);
 
 	bool isCurrentlyTnterceptingCoutCerrAndCLog = false;
-	bool intercepCoutCerrAndCLog = false;
+	bool _intercepCoutCerrAndCLog = false;
 	bool tryToIdentifyLogLevelOfStdoutMessages = false;
 	
 
@@ -231,7 +150,7 @@ public:
 	map<int, string> getLogLevels();
 	
 
-	string levelToString(int level, string defaultName = "INFO");
+	string levelToString(int level, string defaultName = "INFO") override;
 	
 	
 	NLogger getNamedLogger(string name);

@@ -1,7 +1,7 @@
 #ifndef __LOGGERCOMMANDCALLWRITER__H__
 #define __LOGGERCOMMANDCALLWRITER__H__
 
-#include "../logger.h"
+#include "../ilogger.h"
 #include <thread>
 #include <mutex>
 #include <string>
@@ -14,7 +14,7 @@ using namespace std;
 
 class LoggerCommandCallWriter: public ILogWriter{
 public: /* ILogWeriter */
-    void write(Logger* sender, string msg, int level, string name, std::time_t dateTime) override;
+    void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime) override;
 private:
     mutex waitFlushMutex;
     mutex exitMutex;
