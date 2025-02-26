@@ -32,13 +32,13 @@ Logger::Logger(vector<ILogWriter*> writers, bool intercepCoutCerrAndCLog, bool t
 
 Logger::~Logger()
 {
+    this->flushCaches();
+    usleep(15000);
     for (auto &c: this->writers)
         delete c;
         
     this->writers.clear();
     running = false;
-    this->flushCaches();
-    usleep(15000);
 }
 
 void Logger::interceptStdout()
@@ -480,6 +480,14 @@ void Logger::critical(vector<DynamicVar> msgs)
     this->critical(DEFAULT_LOG_NAME, msgs);
 }
 
+
+Logger::GetTzLoggerInfo Logger::getTzLoggerInfo()
+{
+    return GetTzLoggerInfo{
+        this->useCustomTimezone,
+        this->customTimeZoneOffsetInSeconds
+    };
+}
 #pragma endregion
 
 #pragma region ILogWriterCacher class

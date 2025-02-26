@@ -24,8 +24,8 @@ H_SOURCE := $(shell find ./sources  ! -path '*/.git/*' ! -path '*/tests/*' -name
 prebuild:
 # 	prepares the folder built/gui. This folder contains files copied from GUI/resources. These files contains the HTML5 User interface.
 	@ clear
-	@ mkdir ./build | true
-	@ cp -r ./sources/assets/* ./build | true
+	@ mkdir ./build >> /dev/null 2>&1 | true
+	@ cp -r ./sources/assets/* ./build  >> /dev/null 2>&1 | true
  
 # Object files
 temp:=$(subst ../sources,./build/objects/main,$(C_SOURCE))
@@ -44,8 +44,6 @@ CC_FLAGS=-D__TESTING__\
 		-c			\
 		-pthread   \
 		-std=c++20 \
-		-lssl      \
-		-lcrypto   \
 		$(CUSTOM_INCLUDE_PATH)
 
 
@@ -55,8 +53,6 @@ LK_FLAGS=-D__TESTING__\
         -ansi      \
 		-pthread   \
 		-std=c++20 \
-		-lssl      \
-		-lcrypto   \
 		$(CUSTOM_INCLUDE_PATH)
 #
 # Compilation and linking

@@ -94,6 +94,7 @@ class Logger;
 class ILogWriter{
 public:
 	virtual void write(Logger* sender, string msg, int level, string name, std::time_t dateTime) = 0;
+	virtual ~ILogWriter(){};
 };
 
 
@@ -181,6 +182,11 @@ public:
 	static std::time_t getRawTime();
 
 	static string remoteLastLineBreak(string data);
+
+	struct GetTzLoggerInfo{
+		bool useCustomTimezone;
+		int customTimeZoneOffsetInSeconds;
+	}; GetTzLoggerInfo getTzLoggerInfo();
 
 	/** an util function that returnt he current date and time in a string 
 	 * @param date indicates if the result should contains the current date

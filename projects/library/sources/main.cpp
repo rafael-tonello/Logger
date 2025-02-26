@@ -58,6 +58,7 @@ const char* logger_free_logger(ulong instance)
     auto loggerSetup = loggersSetups[instance];
 
     loggerSetup->writers.clear();
+    delete loggerSetup->logger;
     delete loggerSetup;
 
     loggersSetups.erase(instance);

@@ -6,10 +6,10 @@ import (
 )
 
 func main() {
-	logger := logger.NewLoggerWithCustomLibPath([]logger.ILogWriter{
+	logger := logger.NewLogger([]logger.ILogWriter{
 		logger.NewConsoleWriter(0, true, true, true, true),
 		logger.NewFileWriter(0, "log.log"),
-	}, "../../library/build/logger.so")
+	}, logger.OpCustomDynamicLibPath("../../library/build/logger.so"))
 	log := logger.GetNamedLogger("main")
 
 	log.Trace("Hello world")

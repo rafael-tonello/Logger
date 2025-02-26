@@ -390,7 +390,7 @@ func anyToString(value interface{}, enableJsonOutputIdent bool) string {
 
 //#endregion Logger
 
-// #region named logger
+// #region named logger {
 func (nlogger *NamedLogger) Log(level int, msgs ...any) string {
 	return nlogger.logger.Log(level, nlogger.name, msgs...)
 }
@@ -427,4 +427,4 @@ func (nlogger *NamedLogger) Critical(msgs ...any) string {
 	return nlogger.logger.Critical(nlogger.name, msgs...)
 }
 
-//#endregion named logger
+//#endregion named logger }
