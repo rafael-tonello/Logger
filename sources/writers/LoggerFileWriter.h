@@ -37,7 +37,7 @@ public:
 
 	LoggerFileWriter(string fname, int logLevel = LOGGER_LOG_ALL_LEVELS, bool printMilisseconds = true, int maxFileSize = -1);
 	~LoggerFileWriter();
-	void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime);
+	void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime) override;
 };
  
 #endif 

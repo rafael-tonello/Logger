@@ -156,47 +156,47 @@ public:
 	NLogger getNamedLogger(string name);
 	NLogger* getNamedLoggerP(string name);
 
-	void log(int level, string name, string msg);
-	void trace(string name, string msg);
-	void debug2(string name, string msg);
-	void debug(string name, string msg);
-	void info2(string name, string msg);
-	void info(string name, string msg);
-	void warning(string name, string msg);
-	void error(string name, string msg);
-	void critical(string name, string msg);
+	void log(int level, string name, string msg) override;
+	void trace(string name, string msg) override;
+	void debug2(string name, string msg) override;
+	void debug(string name, string msg) override;
+	void info2(string name, string msg) override;
+	void info(string name, string msg) override;
+	void warning(string name, string msg) override;
+	void error(string name, string msg) override;
+	void critical(string name, string msg) override;
 
-	void log(int level, string name, vector<DynamicVar> msgs);
-	void trace(string name, vector<DynamicVar> msgs);
-	void debug2(string name, vector<DynamicVar> msgs);
-	void debug(string name, vector<DynamicVar> msgs);
-	void info2(string name, vector<DynamicVar> msgs);
-	void info(string name, vector<DynamicVar> msgs);
-	void warning(string name, vector<DynamicVar> msgs);
-	void error(string name, vector<DynamicVar> msgs);
-	void critical(string name, vector<DynamicVar> msgs);
+	void log(int level, string name, vector<DynamicVar> msgs) override;
+	void trace(string name, vector<DynamicVar> msgs) override;
+	void debug2(string name, vector<DynamicVar> msgs) override;
+	void debug(string name, vector<DynamicVar> msgs) override;
+	void info2(string name, vector<DynamicVar> msgs) override;
+	void info(string name, vector<DynamicVar> msgs) override;
+	void warning(string name, vector<DynamicVar> msgs) override;
+	void error(string name, vector<DynamicVar> msgs) override;
+	void critical(string name, vector<DynamicVar> msgs) override;
 
 
 
-	void log(int level, string msg);
-	void trace(string msg);
-	void debug2(string msg);
-	void debug(string msg);
-	void info2(string msg);
-	void info(string msg);
-	void warning(string msg);
-	void error(string msg);
-	void critical(string msg);
+	void log(int level, string msg) override;
+	void trace(string msg) override;
+	void debug2(string msg) override;
+	void debug(string msg) override;
+	void info2(string msg) override;
+	void info(string msg) override;
+	void warning(string msg) override;
+	void error(string msg) override;
+	void critical(string msg) override;
 
-	void log(int level, vector<DynamicVar> msgs);
-	void trace(vector<DynamicVar> msgs);
-	void debug2(vector<DynamicVar> msgs);
-	void debug(vector<DynamicVar> msgs);
-	void info2(vector<DynamicVar> msgs);
-	void info(vector<DynamicVar> msgs);
-	void warning(vector<DynamicVar> msgs);
-	void error(vector<DynamicVar> msgs);
-	void critical(vector<DynamicVar> msgs);
+	void log(int level, vector<DynamicVar> msgs) override;
+	void trace(vector<DynamicVar> msgs) override;
+	void debug2(vector<DynamicVar> msgs) override;
+	void debug(vector<DynamicVar> msgs) override;
+	void info2(vector<DynamicVar> msgs) override;
+	void info(vector<DynamicVar> msgs) override;
+	void warning(vector<DynamicVar> msgs) override;
+	void error(vector<DynamicVar> msgs) override;
+	void critical(vector<DynamicVar> msgs) override;
 };
 
 class NLogger{

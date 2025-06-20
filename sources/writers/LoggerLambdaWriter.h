@@ -13,7 +13,7 @@ public:
 public:
 	LoggerLambdaWriter(function<void(ILogger* sender, string msg, int level, string name, std::time_t dateTime)> writerFunc);
 	
-	void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime);
+	void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime) override;
 };
  
 #endif 
