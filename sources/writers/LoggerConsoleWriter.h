@@ -20,7 +20,7 @@ public:
      * @param displayLinePrefix allow you to chose if the 'line header' should be printed or not to the STD */
     LoggerConsoleWriter(int logLevel = LOGGER_LOGLEVEL_INFO, bool useColors = true, bool displayLinePrefix = true, bool displayDateTime = true, bool printMilisseconds = false);
     ~LoggerConsoleWriter();
-	void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime);
+	void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime) override;
 };
  
 #endif 
