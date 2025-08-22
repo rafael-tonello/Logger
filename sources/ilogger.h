@@ -80,8 +80,10 @@ public:
 	virtual void error(vector<DynamicVar> msgs) = 0;
 	virtual void critical(vector<DynamicVar> msgs) = 0;
 
-	virtual NLogger getNamedLogger(string name) = 0;
-	virtual NLogger* getNamedLoggerP(string name) = 0;
+	//have default implementation (ilogger.cpp)
+	virtual NLogger getNamedLogger(string name);
+	//have default implementation (ilogger.cpp)
+	virtual NLogger* getNamedLoggerP(string name);
 
 	virtual string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false) = 0;
 	virtual string levelToString(int level, string defaultName = "INFO") = 0;
@@ -117,6 +119,39 @@ class ILogWriter{
 public:
 	virtual void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime) = 0;
 	virtual ~ILogWriter(){};
+};
+
+//have default implementation (ilogger.cpp)
+class NLogger{
+private:
+	ILogger* mainLogger;
+	string name;
+public:
+	NLogger();
+	NLogger(string name, ILogger* mainLogger);
+	~NLogger();
+	virtual void setLogName(string name);
+	virtual void setMainLogger(ILogger* mainLogger);
+
+	virtual void log(int level, string msg);
+	virtual void trace(string msg);
+	virtual void debug2(string msg);
+	virtual void debug(string msg);
+	virtual void info2(string msg);
+	virtual void info(string msg);
+	virtual void warning(string msg);
+	virtual void error(string msg);
+	virtual void critical(string msg);
+
+	virtual void log(int level, vector<DynamicVar> msgs);
+	virtual void trace(vector<DynamicVar> msgs);
+	virtual void debug2(vector<DynamicVar> msgs);
+	virtual void debug(vector<DynamicVar> msgs);
+	virtual void info2(vector<DynamicVar> msgs);
+	virtual void info(vector<DynamicVar> msgs);
+	virtual void warning(vector<DynamicVar> msgs);
+	virtual void error(vector<DynamicVar> msgs);
+	virtual void critical(vector<DynamicVar> msgs);
 };
 
 #endif 

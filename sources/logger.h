@@ -138,7 +138,6 @@ public:
 	bool isCurrentlyTnterceptingCoutCerrAndCLog = false;
 	bool _intercepCoutCerrAndCLog = false;
 	bool tryToIdentifyLogLevelOfStdoutMessages = false;
-	
 
 	
 
@@ -151,10 +150,6 @@ public:
 	
 
 	string levelToString(int level, string defaultName = "INFO") override;
-	
-	
-	NLogger getNamedLogger(string name);
-	NLogger* getNamedLoggerP(string name);
 
 	void log(int level, string name, string msg) override;
 	void trace(string name, string msg) override;
@@ -199,36 +194,6 @@ public:
 	void critical(vector<DynamicVar> msgs) override;
 };
 
-class NLogger{
-private:
-	ILogger* mainLogger;
-	string name;
-public:
-	NLogger();
-	NLogger(string name, ILogger* mainLogger);
-	~NLogger();
-	void setLogName(string name);
-	void setMainLogger(ILogger* mainLogger);
 
-	void log(int level, string msg);
-	void trace(string msg);
-	void debug2(string msg);
-	void debug(string msg);
-	void info2(string msg);
-	void info(string msg);
-	void warning(string msg);
-	void error(string msg);
-	void critical(string msg);
-
-	void log(int level, vector<DynamicVar> msgs);
-	void trace(vector<DynamicVar> msgs);
-	void debug2(vector<DynamicVar> msgs);
-	void debug(vector<DynamicVar> msgs);
-	void info2(vector<DynamicVar> msgs);
-	void info(vector<DynamicVar> msgs);
-	void warning(vector<DynamicVar> msgs);
-	void error(vector<DynamicVar> msgs);
-	void critical(vector<DynamicVar> msgs);
-};
 
 #endif 
