@@ -13,10 +13,16 @@
 #include <sstream>
 #include <mutex>
 #include <condition_variable>
-#include "writers/LoggerConsoleWriter.h"
 #include "ilogger.h"
 
 class Logger;
+class LoggerConsoleWriter;
+
+class ILogWriter{
+public:
+	virtual void write(Logger* sender, string msg, int level, string name, std::time_t dateTime) = 0;
+	virtual ~ILogWriter(){};
+};
 
 class ILogWriterCacher: public ILogWriter{
 private:
@@ -28,11 +34,11 @@ private:
 
 	bool running = true;
 	Logger* ctrl;
-	vector<tuple<ILogger*, string, int, string, time_t>> cache;
+	vector<tuple<Logger*, string, int, string, time_t>> cache;
 public:
 	ILogWriterCacher(Logger *ctrl, ILogWriter *driver);
 	~ILogWriterCacher();
-	void write(ILogger* sender, string msg, int level, string name, time_t dateTime) override;
+	void write(Logger* sender, string msg, int level, string name, time_t dateTime) override;
 	void run();
 	void flush();
 
@@ -120,7 +126,13 @@ public:
 	 * @param level the log level of the line
 	 * @param generateDateTime indicates if the date and time should be included in the result
 	 * @return generate a head to log lines or log texts*/
-	string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false) override;
+	string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false);
+
+	string levelToString(int level, string defaultName = "INFO");
+	string generateLineBegining(Logger *logger, int level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false)
+	{
+		return generateLineBegining(logger->levelToString(level), name, generateDateTime, dateTime, includeMilisseconds);
+	}
 
 	/** An utils function to ident multi line logs items. Basically, this function put the 'prefix' in the beginning of each line.
 	 * @param log the multi line log text
@@ -139,18 +151,9 @@ public:
 	bool _intercepCoutCerrAndCLog = false;
 	bool tryToIdentifyLogLevelOfStdoutMessages = false;
 
-	
-
-	string DEFAULT_LOG_NAME = "";
-
-	
-
 	void addLogLevel(int logLevel, string levelDescription);
 	map<int, string> getLogLevels();
 	
-
-	string levelToString(int level, string defaultName = "INFO") override;
-
 	void log(int level, string name, string msg) override;
 	void trace(string name, string msg) override;
 	void debug2(string name, string msg) override;
@@ -161,39 +164,18 @@ public:
 	void error(string name, string msg) override;
 	void critical(string name, string msg) override;
 
-	void log(int level, string name, vector<DynamicVar> msgs) override;
-	void trace(string name, vector<DynamicVar> msgs) override;
-	void debug2(string name, vector<DynamicVar> msgs) override;
-	void debug(string name, vector<DynamicVar> msgs) override;
-	void info2(string name, vector<DynamicVar> msgs) override;
-	void info(string name, vector<DynamicVar> msgs) override;
-	void warning(string name, vector<DynamicVar> msgs) override;
-	void error(string name, vector<DynamicVar> msgs) override;
-	void critical(string name, vector<DynamicVar> msgs) override;
-
-
-
-	void log(int level, string msg) override;
-	void trace(string msg) override;
-	void debug2(string msg) override;
-	void debug(string msg) override;
-	void info2(string msg) override;
-	void info(string msg) override;
-	void warning(string msg) override;
-	void error(string msg) override;
-	void critical(string msg) override;
-
-	void log(int level, vector<DynamicVar> msgs) override;
-	void trace(vector<DynamicVar> msgs) override;
-	void debug2(vector<DynamicVar> msgs) override;
-	void debug(vector<DynamicVar> msgs) override;
-	void info2(vector<DynamicVar> msgs) override;
-	void info(vector<DynamicVar> msgs) override;
-	void warning(vector<DynamicVar> msgs) override;
-	void error(vector<DynamicVar> msgs) override;
-	void critical(vector<DynamicVar> msgs) override;
+	using ILogger::log;
+	using ILogger::trace;
+	using ILogger::debug2;
+	using ILogger::debug;
+	using ILogger::info2;
+	using ILogger::info;
+	using ILogger::warning;
+	using ILogger::error;
+	using ILogger::critical;
 };
 
+#include "writers/LoggerConsoleWriter.h"
 
 
 #endif 

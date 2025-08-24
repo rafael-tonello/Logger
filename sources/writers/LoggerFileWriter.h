@@ -2,7 +2,6 @@
 #define __LOGFILEWRITER__H__ 
 
 #include <fstream>
-#include "../ilogger.h"
 #include "../logger.h"
 #include <ctime>
 #include <limits.h>
@@ -37,7 +36,7 @@ public:
 
 	LoggerFileWriter(string fname, int logLevel = LOGGER_LOG_ALL_LEVELS, bool printMilisseconds = true, int maxFileSize = -1);
 	~LoggerFileWriter();
-	void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime) override;
+	void write(Logger* sender, string msg, int level, string name, std::time_t dateTime) override;
 };
  
 #endif 

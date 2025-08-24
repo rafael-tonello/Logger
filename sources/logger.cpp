@@ -188,51 +188,6 @@ void Logger::critical(string name, string msg){
     log(LOGGER_LOGLEVEL_CRITICAL, name, msg);
 }
 
-void Logger::log(int level, string name, vector<DynamicVar> msgs)
-{
-    this->log(level, name, fromList(msgs));
-}
-
-void Logger::trace(string name, vector<DynamicVar> msgs)
-{
-    this->trace(name, fromList(msgs));
-}
-
-void Logger::debug(string name, vector<DynamicVar> msgs)
-{
-    this->debug(name, fromList(msgs));
-}
-
-void Logger::debug2(string name, vector<DynamicVar> msgs)
-{
-    this->debug2(name, fromList(msgs));
-}
-
-void Logger::info(string name, vector<DynamicVar> msgs)
-{
-    this->info(name, fromList(msgs));
-}
-
-void Logger::info2(string name, vector<DynamicVar> msgs)
-{
-    this->info2(name, fromList(msgs));
-}
-
-void Logger::warning(string name, vector<DynamicVar> msgs)
-{
-    this->warning(name, fromList(msgs));
-}
-
-void Logger::error(string name, vector<DynamicVar> msgs)
-{
-    this->error(name, fromList(msgs));
-}
-
-void Logger::critical(string name, vector<DynamicVar> msgs)
-{
-    this->critical(name, fromList(msgs));
-}
-
 void Logger::flushCaches()
 {
     for (auto &c: writers)
@@ -241,13 +196,6 @@ void Logger::flushCaches()
     }
 }
 
-string Logger::levelToString(int level, string defaultName)
-{
-    if (this->logLevels.count(level))
-        return this->logLevels[level];
-    else
-        return defaultName;
-}
 
 void Logger::addLogLevel(int logLevel, string levelDescription)
 {
@@ -371,6 +319,14 @@ string Logger::generateLineBegining(string level, string name, bool generateDate
     return prefix;
 }
 
+string Logger::levelToString(int level, string defaultName)
+{
+    if (this->logLevels.count(level))
+        return this->logLevels[level];
+    else
+        return defaultName;
+}
+
 string Logger::stringReplace(string source, string replace, string by)
 {
     if (source.find(replace) != string::npos)
@@ -382,82 +338,6 @@ string Logger::stringReplace(string source, string replace, string by)
     }
     else
         return source;
-}
-
-void Logger::log(int level, string msg)
-{
-    this->log(level, DEFAULT_LOG_NAME, msg);
-}
-
-void Logger::trace(string msg)
-{
-    this->trace(DEFAULT_LOG_NAME, msg);
-}
-
-void Logger::debug(string msg)
-{
-    this->debug(DEFAULT_LOG_NAME, msg);
-}
-void Logger::debug2(string msg)
-{
-    this->debug2(DEFAULT_LOG_NAME, msg);
-}
-void Logger::info(string msg)
-{
-    this->info(DEFAULT_LOG_NAME, msg);
-}
-void Logger::info2(string msg)
-{
-    this->info2(DEFAULT_LOG_NAME, msg);
-}
-void Logger::warning(string msg)
-{
-    this->warning(DEFAULT_LOG_NAME, msg);
-}
-void Logger::error(string msg)
-{
-    this->error(DEFAULT_LOG_NAME, msg);
-}
-void Logger::critical(string msg)
-{
-    this->critical(DEFAULT_LOG_NAME, msg);
-}
-
-void Logger::log(int level, vector<DynamicVar> msgs)
-{
-    this->log(level, DEFAULT_LOG_NAME, msgs);
-}
-void Logger::trace(vector<DynamicVar> msgs)
-{
-    this->trace(DEFAULT_LOG_NAME, msgs);
-}
-void Logger::debug(vector<DynamicVar> msgs)
-{
-    this->debug(DEFAULT_LOG_NAME, msgs);
-}
-void Logger::debug2(vector<DynamicVar> msgs)
-{
-    this->debug2(DEFAULT_LOG_NAME, msgs);
-}
-void Logger::info(vector<DynamicVar> msgs)
-{
-    this->info(DEFAULT_LOG_NAME, msgs);
-}
-void Logger::info2(vector<DynamicVar> msgs)
-{
-    this->info2(DEFAULT_LOG_NAME, msgs);
-}
-void Logger::warning(vector<DynamicVar> msgs)
-{
-    this->warning(DEFAULT_LOG_NAME, msgs);
-}
-void Logger::error(vector<DynamicVar> msgs)
-{
-    this->error(DEFAULT_LOG_NAME, msgs);
-}
-void Logger::critical(vector<DynamicVar> msgs)
-{
-    this->critical(DEFAULT_LOG_NAME, msgs);
 }
 
 
@@ -491,7 +371,7 @@ ILogWriterCacher::~ILogWriterCacher()
     delete this->driver;
 }
 
-void ILogWriterCacher::write(ILogger* sender, string msg, int level, string name, time_t dateTime)
+void ILogWriterCacher::write(Logger* sender, string msg, int level, string name, time_t dateTime)
 {
     listLocker.lock();
     cache.push_back(make_tuple(sender, msg, level, name, dateTime));
@@ -507,7 +387,7 @@ void ILogWriterCacher::run()
     while (running)
     {   
         listLocker.lock();
-        vector<tuple<ILogger*, string, int, string, time_t>> cacheTmp = cache;
+        vector<tuple<Logger*, string, int, string, time_t>> cacheTmp = cache;
         cache.clear();
         listLocker.unlock();
 

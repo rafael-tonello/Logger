@@ -27,6 +27,7 @@ using namespace std;
 
 //A helper do diferenciate calls between (string arg) functions and (vector<DynamicVar> args) functions
 #define DVV vector<DynamicVar>
+#define DEFAULT_LOG_NAME ""
 
 class NLogger;
 
@@ -42,15 +43,15 @@ public:
 	virtual void error(string name, string msg) = 0;
 	virtual void critical(string name, string msg) = 0;
 
-	virtual void log(int level, string name, vector<DynamicVar> msgs) = 0;
-	virtual void trace(string name, vector<DynamicVar> msgs) = 0;
-	virtual void debug2(string name, vector<DynamicVar> msgs) = 0;
-	virtual void debug(string name, vector<DynamicVar> msgs) = 0;
-	virtual void info2(string name, vector<DynamicVar> msgs) = 0;
-	virtual void info(string name, vector<DynamicVar> msgs) = 0;
-	virtual void warning(string name, vector<DynamicVar> msgs) = 0;
-	virtual void error(string name, vector<DynamicVar> msgs) = 0;
-	virtual void critical(string name, vector<DynamicVar> msgs) = 0;
+	virtual void log(int level, string name, vector<DynamicVar> msgs);
+	virtual void trace(string name, vector<DynamicVar> msgs);
+	virtual void debug2(string name, vector<DynamicVar> msgs);
+	virtual void debug(string name, vector<DynamicVar> msgs);
+	virtual void info2(string name, vector<DynamicVar> msgs);
+	virtual void info(string name, vector<DynamicVar> msgs);
+	virtual void warning(string name, vector<DynamicVar> msgs);
+	virtual void error(string name, vector<DynamicVar> msgs);
+	virtual void critical(string name, vector<DynamicVar> msgs);
 
 	static string fromList(vector<DynamicVar> items){
 		string out;
@@ -60,38 +61,31 @@ public:
 		return out;
 	}
 
-	virtual void log(int level, string msg) = 0;
-	virtual void trace(string msg) = 0;
-	virtual void debug(string msg) = 0;
-	virtual void debug2(string msg) = 0;
-	virtual void info(string msg) = 0;
-	virtual void info2(string msg) = 0;
-	virtual void warning(string msg) = 0;
-	virtual void error(string msg) = 0;
-	virtual void critical(string msg) = 0;
+	virtual void log(int level, string msg);
+	virtual void trace(string msg);
+	virtual void debug(string msg);
+	virtual void debug2(string msg);
+	virtual void info(string msg);
+	virtual void info2(string msg);
+	virtual void warning(string msg);
+	virtual void error(string msg);
+	virtual void critical(string msg);
 
-	virtual void log(int level, vector<DynamicVar> msgs) = 0;
-	virtual void trace(vector<DynamicVar> msgs) = 0;
-	virtual void debug(vector<DynamicVar> msgs) = 0;
-	virtual void debug2(vector<DynamicVar> msgs) = 0;
-	virtual void info(vector<DynamicVar> msgs) = 0;
-	virtual void info2(vector<DynamicVar> msgs) = 0;
-	virtual void warning(vector<DynamicVar> msgs) = 0;
-	virtual void error(vector<DynamicVar> msgs) = 0;
-	virtual void critical(vector<DynamicVar> msgs) = 0;
+	virtual void log(int level, vector<DynamicVar> msgs);
+	virtual void trace(vector<DynamicVar> msgs);
+	virtual void debug(vector<DynamicVar> msgs);
+	virtual void debug2(vector<DynamicVar> msgs);
+	virtual void info(vector<DynamicVar> msgs);
+	virtual void info2(vector<DynamicVar> msgs);
+	virtual void warning(vector<DynamicVar> msgs);
+	virtual void error(vector<DynamicVar> msgs);
+	virtual void critical(vector<DynamicVar> msgs);
 
 	//have default implementation (ilogger.cpp)
 	virtual NLogger getNamedLogger(string name);
 	//have default implementation (ilogger.cpp)
 	virtual NLogger* getNamedLoggerP(string name);
 
-	virtual string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false) = 0;
-	virtual string levelToString(int level, string defaultName = "INFO") = 0;
-	
-	virtual string generateLineBegining(ILogger *logger, int level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false)
-	{
-		return generateLineBegining(logger->levelToString(level), name, generateDateTime, dateTime, includeMilisseconds);
-	}
 
 /** helper functions */
 public:
@@ -113,12 +107,6 @@ public:
 		auto temp = stringReplace(log, "\n", "\r\t"+prefix);
 		return stringReplace(temp, "\r\t", "\n");
 	}
-};
-
-class ILogWriter{
-public:
-	virtual void write(ILogger* sender, string msg, int level, string name, std::time_t dateTime) = 0;
-	virtual ~ILogWriter(){};
 };
 
 //have default implementation (ilogger.cpp)

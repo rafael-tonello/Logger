@@ -123,3 +123,126 @@ void NLogger::critical(vector<DynamicVar> msgs)
 {
     this->mainLogger->critical(this->name, msgs);
 }
+
+
+void ILogger::log(int level, string msg)
+{
+    this->log(level, DEFAULT_LOG_NAME, msg);
+}
+
+void ILogger::trace(string msg)
+{
+    this->trace(DEFAULT_LOG_NAME, msg);
+}
+
+void ILogger::debug(string msg)
+{
+    this->debug(DEFAULT_LOG_NAME, msg);
+}
+void ILogger::debug2(string msg)
+{
+    this->debug2(DEFAULT_LOG_NAME, msg);
+}
+void ILogger::info(string msg)
+{
+    this->info(DEFAULT_LOG_NAME, msg);
+}
+void ILogger::info2(string msg)
+{
+    this->info2(DEFAULT_LOG_NAME, msg);
+}
+void ILogger::warning(string msg)
+{
+    this->warning(DEFAULT_LOG_NAME, msg);
+}
+void ILogger::error(string msg)
+{
+    this->error(DEFAULT_LOG_NAME, msg);
+}
+void ILogger::critical(string msg)
+{
+    this->critical(DEFAULT_LOG_NAME, msg);
+}
+
+void ILogger::log(int level, vector<DynamicVar> msgs)
+{
+    this->log(level, DEFAULT_LOG_NAME, msgs);
+}
+void ILogger::trace(vector<DynamicVar> msgs)
+{
+    this->trace(DEFAULT_LOG_NAME, msgs);
+}
+void ILogger::debug(vector<DynamicVar> msgs)
+{
+    this->debug(DEFAULT_LOG_NAME, msgs);
+}
+void ILogger::debug2(vector<DynamicVar> msgs)
+{
+    this->debug2(DEFAULT_LOG_NAME, msgs);
+}
+void ILogger::info(vector<DynamicVar> msgs)
+{
+    this->info(DEFAULT_LOG_NAME, msgs);
+}
+void ILogger::info2(vector<DynamicVar> msgs)
+{
+    this->info2(DEFAULT_LOG_NAME, msgs);
+}
+void ILogger::warning(vector<DynamicVar> msgs)
+{
+    this->warning(DEFAULT_LOG_NAME, msgs);
+}
+void ILogger::error(vector<DynamicVar> msgs)
+{
+    this->error(DEFAULT_LOG_NAME, msgs);
+}
+void ILogger::critical(vector<DynamicVar> msgs)
+{
+    this->critical(DEFAULT_LOG_NAME, msgs);
+}
+
+void ILogger::log(int level, string name, vector<DynamicVar> msgs)
+{
+    this->log(level, name, fromList(msgs));
+}
+
+void ILogger::trace(string name, vector<DynamicVar> msgs)
+{
+    this->trace(name, fromList(msgs));
+}
+
+void ILogger::debug(string name, vector<DynamicVar> msgs)
+{
+    this->debug(name, fromList(msgs));
+}
+
+void ILogger::debug2(string name, vector<DynamicVar> msgs)
+{
+    this->debug2(name, fromList(msgs));
+}
+
+void ILogger::info(string name, vector<DynamicVar> msgs)
+{
+    this->info(name, fromList(msgs));
+}
+
+void ILogger::info2(string name, vector<DynamicVar> msgs)
+{
+    this->info2(name, fromList(msgs));
+}
+
+void ILogger::warning(string name, vector<DynamicVar> msgs)
+{
+    this->warning(name, fromList(msgs));
+}
+
+void ILogger::error(string name, vector<DynamicVar> msgs)
+{
+    this->error(name, fromList(msgs));
+}
+
+void ILogger::critical(string name, vector<DynamicVar> msgs)
+{
+    this->critical(name, fromList(msgs));
+}
+

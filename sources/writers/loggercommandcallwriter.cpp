@@ -70,7 +70,7 @@ void LoggerCommandCallWriter::flushCurrentCacheFile(bool createNew)
         
 }
 
-void LoggerCommandCallWriter::write(ILogger* sender, string msg, int level, string name, std::time_t dateTime){
+void LoggerCommandCallWriter::write(Logger* sender, string msg, int level, string name, std::time_t dateTime){
     //"<completeLineHeader>","<Text>","<name>",<lovLevelNumber>,"<logLevelStr>"
     string lineHeader = sender->generateLineBegining(sender, level, name, true, dateTime, true);
 

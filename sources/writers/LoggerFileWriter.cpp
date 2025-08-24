@@ -24,7 +24,7 @@ LoggerFileWriter::~LoggerFileWriter()
     }
 }
 
-void LoggerFileWriter::write(ILogger* sender, string msg, int level, string name, std::time_t dateTime){
+void LoggerFileWriter::write(Logger* sender, string msg, int level, string name, std::time_t dateTime){
     if (level >= logLevel)
     {
         string lineHeader = sender->generateLineBegining(sender, level, name, true, dateTime, this->printMilisseconds);

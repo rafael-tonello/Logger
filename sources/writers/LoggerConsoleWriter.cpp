@@ -14,7 +14,7 @@ LoggerConsoleWriter::~LoggerConsoleWriter()
 
 }
  
-void LoggerConsoleWriter::write(ILogger* sender, string msg, int level, string name, std::time_t dateTime){
+void LoggerConsoleWriter::write(Logger* sender, string msg, int level, string name, std::time_t dateTime){
     if (level >= logLevel)
     {
         if (displayLinePrefix)
