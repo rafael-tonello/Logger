@@ -196,17 +196,6 @@ void Logger::flushCaches()
     }
 }
 
-
-void Logger::addLogLevel(int logLevel, string levelDescription)
-{
-    logLevels[logLevel] = levelDescription;
-}
-
-map<int, string> Logger::getLogLevels()
-{
-    return logLevels;
-}
-
 std::time_t Logger::getRawTime()
 {
     std::time_t rawtime;
@@ -317,14 +306,6 @@ string Logger::generateLineBegining(string level, string name, bool generateDate
 
 
     return prefix;
-}
-
-string Logger::levelToString(int level, string defaultName)
-{
-    if (this->logLevels.count(level))
-        return this->logLevels[level];
-    else
-        return defaultName;
 }
 
 string Logger::stringReplace(string source, string replace, string by)

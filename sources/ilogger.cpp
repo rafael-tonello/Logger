@@ -246,3 +246,21 @@ void ILogger::critical(string name, vector<DynamicVar> msgs)
     this->critical(name, fromList(msgs));
 }
 
+string ILogger::levelToString(int level, string defaultName)
+{
+    if (logLevelsNames.count(level))
+        return logLevelsNames[level];
+    else
+        return defaultName;
+}
+
+void ILogger::addLogLevel(int logLevel, string levelDescription)
+{
+    logLevelsNames[logLevel] = levelDescription;
+}
+
+map<int, string> ILogger::getLogLevels()
+{
+    return logLevelsNames;
+}
+

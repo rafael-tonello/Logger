@@ -55,17 +55,6 @@ private:
 	int customTimeZoneOffsetInSeconds = -1;
 	bool useCustomTimezone = false;
 
-	map<int, string> logLevels {
-		{LOGGER_LOGLEVEL_TRACE, "TRACE"},
-		{LOGGER_LOGLEVEL_DEBUG2, "DEBUG2"},
-		{LOGGER_LOGLEVEL_DEBUG, "DEBUG"},
-		{LOGGER_LOGLEVEL_INFO2, "INFO2"},
-		{LOGGER_LOGLEVEL_INFO, "INFO"},
-		{LOGGER_LOGLEVEL_WARNING, "WARNING"},
-		{LOGGER_LOGLEVEL_ERROR, "ERROR"},
-		{LOGGER_LOGLEVEL_CRITICAL, "CRITICAL"},
-	};
-
 	void init(
 		vector<ILogWriter*> writers, 
 		bool intercepCoutCerrAndCLog = false, 
@@ -128,7 +117,7 @@ public:
 	 * @return generate a head to log lines or log texts*/
 	string generateLineBegining(string level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false);
 
-	string levelToString(int level, string defaultName = "INFO");
+	
 	string generateLineBegining(Logger *logger, int level, string name, bool generateDateTime = true, time_t dateTime = -1, bool includeMilisseconds = false)
 	{
 		return generateLineBegining(logger->levelToString(level), name, generateDateTime, dateTime, includeMilisseconds);
@@ -150,9 +139,6 @@ public:
 	bool isCurrentlyTnterceptingCoutCerrAndCLog = false;
 	bool _intercepCoutCerrAndCLog = false;
 	bool tryToIdentifyLogLevelOfStdoutMessages = false;
-
-	void addLogLevel(int logLevel, string levelDescription);
-	map<int, string> getLogLevels();
 	
 	void log(int level, string name, string msg) override;
 	void trace(string name, string msg) override;

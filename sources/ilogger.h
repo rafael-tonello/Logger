@@ -25,6 +25,7 @@ using namespace std;
 #define LOGGER_LOGLEVEL_ERROR 60
 #define LOGGER_LOGLEVEL_CRITICAL 70
 
+
 //A helper do diferenciate calls between (string arg) functions and (vector<DynamicVar> args) functions
 #define DVV vector<DynamicVar>
 #define DEFAULT_LOG_NAME ""
@@ -32,6 +33,17 @@ using namespace std;
 class NLogger;
 
 class ILogger{
+private:
+	map<int, string> logLevelsNames {
+		{LOGGER_LOGLEVEL_TRACE, "TRACE"},
+		{LOGGER_LOGLEVEL_DEBUG2, "DEBUG2"},
+		{LOGGER_LOGLEVEL_DEBUG, "DEBUG"},
+		{LOGGER_LOGLEVEL_INFO2, "INFO2"},
+		{LOGGER_LOGLEVEL_INFO, "INFO"},
+		{LOGGER_LOGLEVEL_WARNING, "WARNING"},
+		{LOGGER_LOGLEVEL_ERROR, "ERROR"},
+		{LOGGER_LOGLEVEL_CRITICAL, "CRITICAL"},
+	};
 public:
 	virtual void log(int level, string name, string msg) = 0;
 	virtual void trace(string name, string msg) = 0;
@@ -86,6 +98,10 @@ public:
 	//have default implementation (ilogger.cpp)
 	virtual NLogger* getNamedLoggerP(string name);
 
+
+	string levelToString(int level, string defaultName = "INFO");
+	void addLogLevel(int logLevel, string levelDescription);
+	map<int, string> getLogLevels();
 
 /** helper functions */
 public:
