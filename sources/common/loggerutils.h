@@ -70,7 +70,7 @@ using namespace std;
         static vector <string> validProxies;
         static char proxyListInitializedState;
     public:
-        static void named_lock(string session_name, named_lock_f f, int timeout_ms = -1);
+        static void named_lock(string session_name, named_lock_f f, int timeout_ms = -1, bool raiseErrorIfLockFails = true);
         static void named_lock_forceunlock(string session_name);
         static int64_t getCurrentTimeMicroseconds();
         static int64_t getCurrentTimeMilliseconds();

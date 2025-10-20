@@ -5,7 +5,7 @@ map<string, timed_mutex*> LoggerUtils::names_locks_mutexes;
 bool LoggerUtils::srandOk = false;
 char LoggerUtils::proxyListInitializedState = 'a';
 
-void LoggerUtils::named_lock(string session_name, named_lock_f f, int timeout_ms)
+void LoggerUtils::named_lock(string session_name, named_lock_f f, int timeout_ms, bool raiseErrorIfLockFails)
 {
     LoggerUtils::names_locks_mutexes_mutex.lock();
     if (LoggerUtils::names_locks_mutexes.count(session_name) <= 0)
@@ -15,7 +15,11 @@ void LoggerUtils::named_lock(string session_name, named_lock_f f, int timeout_ms
     LoggerUtils::names_locks_mutexes_mutex.unlock();
 
     if (timeout_ms > 0)
-        LoggerUtils::names_locks_mutexes[session_name]->try_lock_for(std::chrono::milliseconds(timeout_ms));
+    {
+        auto result = LoggerUtils::names_locks_mutexes[session_name]->try_lock_for(std::chrono::milliseconds(timeout_ms));
+        if (!result && raiseErrorIfLockFails)
+            throw std::runtime_error("Timeout reached when trying to acquire named lock '"+session_name+"'");
+    }
     else
         LoggerUtils::names_locks_mutexes[session_name]->lock();
     try
@@ -60,7 +64,7 @@ string LoggerUtils::StringToHex(string &input, size_t size)
     std::string output;
     size_t outputSize = size * 2;
     output.reserve(outputSize);
-    for (auto count = 0; count < size; count++)
+    for (size_t count = 0; count < size; count++)
     {
         auto c = input[count];
         output.push_back(hex_digits[c >> 4]);
@@ -82,7 +86,7 @@ string LoggerUtils::charVecToHex(char* data, size_t size)
     std::string output;
     size_t outputSize = size * 2;
     output.reserve(outputSize);
-    for (auto count = 0; count < outputSize; count++)
+    for (size_t count = 0; count < outputSize; count++)
     {
         auto c = data[count];
         output.push_back(hex_digits[c >> 4]);
@@ -417,7 +421,7 @@ string LoggerUtils::stringReplaceMarker(string source, vector<string> by, string
 {
     stringstream ret;
     auto pos = source.find(marker);
-    int index = 0;
+    size_t index = 0;
     while (pos != string::npos && index < by.size())
     {
         auto currReplacer = by[index];
@@ -438,7 +442,7 @@ bool LoggerUtils::isNumber(string source)
 {
     string validChars = "0123456789";
     bool alreadyDot = false;
-    for (int c = 0; c < source.size(); c++)
+    for (size_t c = 0; c < source.size(); c++)
     {
         char curr = source[c];
         if ((curr == '+' || curr == '-') && c != 0)
