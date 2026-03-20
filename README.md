@@ -119,29 +119,5 @@ extern "C" const char* logger_critical(ulong instance, char* name, char* msg);
 
 ```
 
-# Golang Wrapper
-The Golang wrapper is a rich wrapper for the Logger library.
-
-
-# Building all
-
-Run the file build.sh. Build sh will build all projects and run all tests.
-
-# TODO LISTS
-## general
-```
-	[x] Create a flush function to wait cache clear
-  	[x] Remove exception from critical function 
-	[x] Critical function must flush library
-	[x] Use custom timezones
-	[x] Option to apply offset when using custom timezones
-```
-
-## tests
-```
-    [ ] logger
-    [ ] logger->LoggerConsoleWriter
-    [ ] logger->LoggerFileWriter
-    [ ] logger->LoggerLambdaWriter
-	[x] timezones
-```
+# file writer with auto copactation
+The library have a implementation of the writer interface that write logs files. This implementation have a compactation feature, that automatically compact the log file when it reaches a pre-configured size.
